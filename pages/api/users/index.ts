@@ -1,17 +1,15 @@
-import type { NextApiRequest, NextApiResponse } from "next";
-import nextConnect from "next-connect";
+import nc, { type ApiRequest } from "models/connect";
+import type { NextApiResponse } from "next";
+import type { RequestHandler } from "next-connect";
 
-export default nextConnect<NextApiRequest, NextApiResponse>({
-	onError: (err, req, res, next) => {
-		// TODO: Improve error handling (logging and custom error objects)
-		return res.status(500).json({ message: err.message ?? "Houve um erro inesperado." });
-	},
-})
-	.get((req, res) => {
-		// Ver todos os usuários (admin)
-		return res.status(501).json({ message: "Não implementado." });
-	})
-	.post((req, res) => {
-		// Criar um novo usuário (publico)
-		return res.status(501).json({ message: "Não implementado." });
-	});
+const getHandler: RequestHandler<ApiRequest, NextApiResponse> = async (req, res) => {
+	// Ver todos os usuários (admin)
+	return res.status(501).json({ message: "Não implementado." });
+};
+
+const postHandler: RequestHandler<ApiRequest, NextApiResponse> = async (req, res) => {
+	// Criar um novo usuário (publico)
+	return res.status(501).json({ message: "Não implementado." });
+};
+
+export default nc.get(getHandler).post(postHandler);
