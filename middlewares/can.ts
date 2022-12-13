@@ -1,0 +1,39 @@
+import { type Permission, Permissions } from "entities/Permissions";
+import type { ApiRequestUser } from "entities/User";
+import { ForbiddenError, UnauthorizedError, ValidationError } from "errors/index";
+
+export const can = (requiredPermission: Permission, user?: ApiRequestUser) => {
+	validateUser(user);
+
+	const authorized = user?.permissions.includes(requiredPermission);
+	if (!authorized) {
+		throw new ForbiddenError({ errorLocationCode: "MIDDLEWARES:CAN:FORBIDDEN" });
+	}
+};
+
+const validateUser = (user?: ApiRequestUser) => {
+	if (!user) {
+		throw new UnauthorizedError({
+			errorLocationCode: "MIDDLEWARES:CAN:VALIDATION:UNAUTHORIZED",
+		});
+	}
+
+	if (!user.permissions || user.permissions.length <= 0) {
+		throw new ValidationError({
+			message: "O usuário não tem o campo 'permissions' ou está nulo.",
+			action: "Reporte o erro utilizando o 'requestId'.",
+			errorLocationCode: "MIDDLEWARES:CAN:PERMISSION:NULL_OR_EMPTY",
+		});
+	}
+
+	for (const permission of user.permissions) {
+		if (!Object.keys(Permissions).includes(permission)) {
+			throw new ValidationError({
+				message: "Uma das permissões do usuário é inválida.",
+				action: "Reporte o erro utilizando o 'requestId' e a permissão inválida do campo 'key'.",
+				errorLocationCode: "MIDDLEWARES:CAN:PERMISSION:INVALID",
+				key: permission,
+			});
+		}
+	}
+};

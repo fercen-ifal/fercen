@@ -21,7 +21,9 @@
 		],
 		"baseUrl": "./",
 		"paths": {
+			"entities/*": ["entities/*"],
 			"errors/*": ["errors/*"],
+			"middlewares/*": ["middlewares/*"],
 			"models/*": ["models/*"]
 		}
 	},

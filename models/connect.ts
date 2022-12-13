@@ -1,3 +1,5 @@
+import { AnonymousUserPermissions } from "entities/Permissions";
+import type { ApiRequestUser } from "entities/User";
 import {
 	type BaseErrorParams,
 	ForbiddenError,
@@ -12,10 +14,15 @@ import { v4 as uuid } from "uuid";
 
 export interface ApiRequest extends NextApiRequest {
 	requestId?: string;
+	user?: ApiRequestUser;
 }
 
-const injectRequestId: Middleware<ApiRequest, NextApiResponse> = async (req, res, next) => {
+const injectRequestMetadata: Middleware<ApiRequest, NextApiResponse> = async (req, res, next) => {
 	req.requestId = uuid();
+	res.setHeader("X-Request-Id", req.requestId);
+
+	// TODO: Implement real user data injection
+	req.user = { permissions: AnonymousUserPermissions };
 
 	if (next) next();
 };
@@ -58,6 +65,6 @@ const nc = nextConnect<ApiRequest, NextApiResponse>({
 		console.log(error);
 		return res.status(error.statusCode).json(error);
 	},
-}).use(injectRequestId);
+}).use(injectRequestMetadata);
 
 export default nc;
