@@ -17,6 +17,7 @@ export const can = (requiredPermission: Permission, user?: ApiRequestUser) => {
 export const canRequest = (requiredPermission: Permission) => {
 	return (req: ApiRequest, res: NextApiResponse, next: NextHandler) => {
 		can(requiredPermission, req.user);
+		next();
 	};
 };
 
