@@ -1,6 +1,9 @@
 import { type Permission, Permissions } from "entities/Permissions";
 import type { ApiRequestUser } from "entities/User";
 import { ForbiddenError, UnauthorizedError, ValidationError } from "errors/index";
+import type { ApiRequest } from "models/connect";
+import type { NextApiResponse } from "next";
+import type { NextHandler } from "next-connect";
 
 export const can = (requiredPermission: Permission, user?: ApiRequestUser) => {
 	validateUser(user);
@@ -9,6 +12,12 @@ export const can = (requiredPermission: Permission, user?: ApiRequestUser) => {
 	if (!authorized) {
 		throw new ForbiddenError({ errorLocationCode: "MIDDLEWARES:CAN:FORBIDDEN" });
 	}
+};
+
+export const canRequest = (requiredPermission: Permission) => {
+	return (req: ApiRequest, res: NextApiResponse, next: NextHandler) => {
+		can(requiredPermission, req.user);
+	};
 };
 
 const validateUser = (user?: ApiRequestUser) => {
