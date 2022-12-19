@@ -56,10 +56,10 @@ const schemas: Record<string, () => Joi.ObjectSchema> = {
 					otherwise: Joi.optional(),
 				})
 				.messages({
-					"any.required": "O campo 'id' é obrigatório.",
-					"string.empty": "O campo 'id' não pode estar em branco.",
-					"string.base": "O campo 'id' deve ser uma string",
-					"string.guid": "O campo 'id' deve ser um UUIDv4.",
+					"any.required": "O campo {#label} é obrigatório.",
+					"string.empty": "O campo {#label} não pode estar em branco.",
+					"string.base": "O campo {#label} deve ser uma string",
+					"string.guid": "O campo {#label} deve ser um UUIDv4.",
 				}),
 		});
 	},
@@ -78,14 +78,14 @@ const schemas: Record<string, () => Joi.ObjectSchema> = {
 					otherwise: Joi.optional(),
 				})
 				.messages({
-					"any.required": "O campo 'username' é obrigatório.",
-					"any.invalid": "O campo 'username' não pode ser nulo.",
-					"string.empty": "O campo 'username' não pode estar em branco.",
-					"string.base": "O campo 'username' deve ser uma string.",
+					"any.required": "O campo {#label} é obrigatório.",
+					"any.invalid": "O campo {#label} não pode ser nulo.",
+					"string.empty": "O campo {#label} não pode estar em branco.",
+					"string.base": "O campo {#label} deve ser uma string.",
 					"string.alphanum":
-						"O campo 'username' deve conter apenas caracteres alfanuméricos.",
-					"string.min": "O campo 'username' deve ter, no mínimo, {#limit} caracteres.",
-					"string.max": "O campo 'username' deve ter, no máximo, {#limit} caracteres.",
+						"O campo {#label} deve conter apenas caracteres alfanuméricos.",
+					"string.min": "O campo {#label} deve ter, no mínimo, {#limit} caracteres.",
+					"string.max": "O campo {#label} deve ter, no máximo, {#limit} caracteres.",
 				}),
 		});
 	},
@@ -105,11 +105,11 @@ const schemas: Record<string, () => Joi.ObjectSchema> = {
 					otherwise: Joi.optional(),
 				})
 				.messages({
-					"any.required": "O campo 'email' é obrigatório.",
-					"any.invalid": "O campo 'email' não pode ser nulo.",
-					"string.empty": "O campo 'email' não pode estar em branco.",
-					"string.base": "O campo 'email' deve ser uma string.",
-					"string.email": "O campo 'email' deve ser um email válido.",
+					"any.required": "O campo {#label} é obrigatório.",
+					"any.invalid": "O campo {#label} não pode ser nulo.",
+					"string.empty": "O campo {#label} não pode estar em branco.",
+					"string.base": "O campo {#label} deve ser uma string.",
+					"string.email": "O campo {#label} deve ser um email válido.",
 				}),
 		});
 	},
@@ -127,12 +127,38 @@ const schemas: Record<string, () => Joi.ObjectSchema> = {
 					otherwise: Joi.optional(),
 				})
 				.messages({
-					"any.required": "O campo 'password' é obrigatório.",
-					"any.invalid": "O campo 'password' não pode ser nulo.",
-					"string.empty": "O campo 'password' não pode estar em branco.",
-					"string.base": "O campo 'password' deve ser uma string.",
-					"string.min": "O campo 'password' deve ter, no mínimo, {#limit} caracteres.",
-					"string.max": "O campo 'password' deve ter, no máximo, {#limit} caracteres.",
+					"any.required": "O campo {#label} é obrigatório.",
+					"any.invalid": "O campo {#label} não pode ser nulo.",
+					"string.empty": "O campo {#label} não pode estar em branco.",
+					"string.base": "O campo {#label} deve ser uma string.",
+					"string.min": "O campo {#label} deve ter, no mínimo, {#limit} caracteres.",
+					"string.max": "O campo {#label} deve ter, no máximo, {#limit} caracteres.",
+				}),
+		});
+	},
+
+	invite: () => {
+		return Joi.object({
+			invite: Joi.string()
+				.trim()
+				.alphanum()
+				.invalid(null)
+				.min(5)
+				.max(10)
+				.when("$required.invite", {
+					is: "required",
+					then: Joi.required(),
+					otherwise: Joi.optional(),
+				})
+				.messages({
+					"any.required": "O campo {#label} é obrigatório.",
+					"any.invalid": "O campo {#label} não pode ser nulo.",
+					"string.empty": "O campo {#label} não pode estar em branco.",
+					"string.base": "O campo {#label} deve ser uma string.",
+					"string.alphanum":
+						"O campo {#label} deve conter apenas caracteres alfanuméricos.",
+					"string.min": "O campo {#label} deve ter, no mínimo, {#limit} caracteres.",
+					"string.max": "O campo {#label} deve ter, no máximo, {#limit} caracteres.",
 				}),
 		});
 	},

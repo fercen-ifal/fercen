@@ -21,6 +21,7 @@ const postHandler: RequestHandler<ApiRequest, NextApiResponse> = async (req, res
 		username: "required",
 		email: "required",
 		password: "required",
+		invite: "required",
 	});
 
 	return res.status(501).json({ message: "Não implementado.", body });
