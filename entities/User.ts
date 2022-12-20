@@ -7,7 +7,7 @@ export interface UserProviderConnection {
 	uid: string;
 	name: string;
 	email: string;
-	connectedAt: FirebaseFirestore.Timestamp;
+	connectedAt?: FirebaseFirestore.Timestamp;
 }
 
 /**
@@ -20,6 +20,7 @@ export interface User {
 	username: string;
 	email: string;
 	permissions: Permission[];
+	invite: string | null;
 	googleProvider?: UserProviderConnection;
 	microsoftProvider?: UserProviderConnection;
 }
@@ -37,10 +38,20 @@ export interface DatabaseUser extends User {
 }
 
 /**
+ * Interface do usuário que pode ser alterada no banco de dados.
+ */
+export interface UpdatableUser {
+	fullname?: string;
+	email?: string;
+	permissions?: Permission[];
+	googleProvider?: UserProviderConnection;
+	microsoftProvider?: UserProviderConnection;
+}
+
+/**
  * Interface do usuário exclusiva do objeto de request da API.
  */
 export interface ApiRequestUser {
-	// TODO: Adjust on User interface change
 	id?: string;
 	username?: string;
 	permissions: Permission[];

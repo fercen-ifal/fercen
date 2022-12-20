@@ -68,6 +68,7 @@ const schemas: Record<string, () => Joi.ObjectSchema> = {
 		return Joi.object({
 			username: Joi.string()
 				.trim()
+				.lowercase()
 				.alphanum()
 				.invalid(null)
 				.min(3)

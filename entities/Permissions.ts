@@ -3,6 +3,7 @@ export const Permissions = {
 	"create:user": "create:user",
 	"read:user": "read:user",
 	"update:user": "update:user",
+	"update:user:other": "update:user:other",
 	"read:user:other": "read:user:other",
 	"read:user:list": "read:user:list",
 

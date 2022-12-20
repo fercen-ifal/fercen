@@ -24,7 +24,8 @@
 			"entities/*": ["entities/*"],
 			"errors/*": ["errors/*"],
 			"middlewares/*": ["middlewares/*"],
-			"models/*": ["models/*"]
+			"models/*": ["models/*"],
+			"providers/*": ["repositories/*"]
 		}
 	},
 	"include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts"],
