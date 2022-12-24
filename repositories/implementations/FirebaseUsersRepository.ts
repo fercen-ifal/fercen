@@ -95,11 +95,19 @@ export class FirebaseUsersRepository implements IUsersRepository {
 
 	async readByUsername(username: string): Promise<User | null> {
 		return await retry(async () => {
-			const user = await this.col.where("username", "==", username).limit(1).get();
-			if (user.empty || !user.docs[0].exists || !user.docs[0].data()) return null;
-			const { password, ...data } = user.docs[0].data() as DatabaseUser;
+			try {
+				const user = await this.col.where("username", "==", username).limit(1).get();
+				if (user.empty || !user.docs[0].exists || !user.docs[0].data()) return null;
+				const { password, ...data } = user.docs[0].data() as DatabaseUser;
 
-			return data;
+				return data;
+			} catch (err) {
+				throw new InternalServerError({
+					message: "Não foi possível ler o usuário.",
+					errorLocationCode: "REPOS:USERS:READBYUSERNAME_FAILURE",
+					stack: new Error().stack,
+				});
+			}
 		}, this.retryOpts);
 	}
 
