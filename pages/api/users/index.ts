@@ -19,7 +19,8 @@ interface PostHandlerBody {
 
 const getHandler: RequestHandler<ApiRequest, NextApiResponse> = async (req, res) => {
 	// Ver todos os usuários (admin)
-	return res.status(501).json({ message: "Não implementado." });
+	const users = await usersRepository.readAll();
+	return res.status(200).json({ message: "Usuários listados com sucesso.", users });
 };
 
 const postHandler: RequestHandler<ApiRequest, NextApiResponse> = async (req, res) => {

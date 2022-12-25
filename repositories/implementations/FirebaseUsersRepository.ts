@@ -79,8 +79,8 @@ export class FirebaseUsersRepository implements IUsersRepository {
 			const databaseUsers = await this.col.get();
 
 			for (const user of databaseUsers.docs) {
-				const data = user.data() as User | undefined;
-				if (!data) continue;
+				if (!user.data()) continue;
+				const { password, ...data } = user.data() as DatabaseUser;
 				users.push(data);
 			}
 
