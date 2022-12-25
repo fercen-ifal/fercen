@@ -4,10 +4,11 @@ import nc, { type ApiRequest } from "models/connect";
 import validator from "models/validator";
 import type { NextApiResponse } from "next";
 import type { RequestHandler } from "next-connect";
-import { usersRepository } from "providers/index";
+import { invitesRepository, usersRepository } from "providers/index";
 import { hash } from "bcrypt";
 import { AnonymousUserPermissions } from "entities/Permissions";
 import retry from "async-retry";
+import { firestore as FirebaseFirestore } from "firebase-admin";
 
 interface PostHandlerBody {
 	username: string;
@@ -41,7 +42,24 @@ const postHandler: RequestHandler<ApiRequest, NextApiResponse> = async (req, res
 		});
 	}
 
-	// TODO: Implement invite verification
+	const inviteExists = await invitesRepository.read(body.invite, true);
+
+	if (!inviteExists || inviteExists.used) {
+		throw new ValidationError({
+			message: "O 'invite' informado não existe ou é inválido.",
+			action: "Altere seus dados e tente novamente.",
+			errorLocationCode: "API:USERS:POST:INVITE_INVALID",
+		});
+	}
+
+	if (inviteExists.targetEmail !== body.email) {
+		throw new ValidationError({
+			message: "O 'invite' informado não pertence ao seu usuário.",
+			action: "Altere seus dados e tente novamente.",
+			errorLocationCode: "API:USERS:POST:INVITE_TARGET_MISMATCH",
+		});
+	}
+
 	// TODO: Create a service to abstract controller operations
 
 	let password = "";
@@ -68,6 +86,12 @@ const postHandler: RequestHandler<ApiRequest, NextApiResponse> = async (req, res
 		invite: body.invite,
 		permissions: [...AnonymousUserPermissions, "read:user", "read:session", "update:user"],
 	});
+
+	await invitesRepository.update(
+		body.invite,
+		{ used: true, usedAt: FirebaseFirestore.Timestamp.now() },
+		true
+	);
 
 	return res.status(201).json({ message: "Usuário criado com sucesso.", action: "Faça login." });
 };

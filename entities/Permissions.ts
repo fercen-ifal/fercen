@@ -12,6 +12,6 @@ export const Permissions = {
 	"read:session": "read:session",
 } as const;
 
-export const AnonymousUserPermissions: Permission[] = ["create:user", "create:session"];
+export const AnonymousUserPermissions = ["create:user", "create:session"] as const;
 
 export type Permission = keyof typeof Permissions;

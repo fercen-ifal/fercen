@@ -4,6 +4,7 @@ import { firestore } from "models/database";
 import type { IUsersRepository } from "providers/IUsersRepository";
 import { v4 as uuid } from "uuid";
 import retry from "async-retry";
+import { firestore as FirebaseFirestore } from "firebase-admin";
 
 export class FirebaseUsersRepository implements IUsersRepository {
 	private readonly col: FirebaseFirestore.CollectionReference<FirebaseFirestore.DocumentData>;
