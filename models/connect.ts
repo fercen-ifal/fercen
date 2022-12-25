@@ -1,5 +1,4 @@
 import { AnonymousUserPermissions } from "entities/Permissions";
-import type { ApiRequestUser } from "entities/User";
 import {
 	type BaseErrorParams,
 	ForbiddenError,
@@ -11,18 +10,20 @@ import {
 import type { NextApiRequest, NextApiResponse } from "next";
 import nextConnect, { type Middleware } from "next-connect";
 import { v4 as uuid } from "uuid";
+import { ironSession } from "iron-session/express";
+import { sessionOptions } from "./session";
 
 export interface ApiRequest extends NextApiRequest {
 	requestId?: string;
-	user?: ApiRequestUser;
 }
 
 const injectRequestMetadata: Middleware<ApiRequest, NextApiResponse> = async (req, res, next) => {
 	req.requestId = uuid();
 	res.setHeader("X-Request-Id", req.requestId);
 
-	// TODO: Implement real user data injection
-	req.user = { permissions: AnonymousUserPermissions };
+	if (!req.session.user) {
+		req.session.user = { permissions: [...AnonymousUserPermissions] };
+	}
 
 	if (next) next();
 };
@@ -39,6 +40,7 @@ const nc = nextConnect<ApiRequest, NextApiResponse>({
 		) {
 			if (err instanceof UnauthorizedError) {
 				// TODO: Cleanup session cookie
+				req.session.destroy();
 			}
 
 			const error: BaseErrorParams = { ...err, requestId: req.requestId || uuid() };
@@ -65,6 +67,8 @@ const nc = nextConnect<ApiRequest, NextApiResponse>({
 		console.log(error);
 		return res.status(error.statusCode).json(error);
 	},
-}).use(injectRequestMetadata);
+})
+	.use(ironSession(sessionOptions))
+	.use(injectRequestMetadata);
 
 export default nc;

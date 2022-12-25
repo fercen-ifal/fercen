@@ -5,6 +5,7 @@ import type { IUsersRepository } from "providers/IUsersRepository";
 import { v4 as uuid } from "uuid";
 import retry from "async-retry";
 import { firestore as FirebaseFirestore } from "firebase-admin";
+import { compare } from "bcrypt";
 
 export class FirebaseUsersRepository implements IUsersRepository {
 	private readonly col: FirebaseFirestore.CollectionReference<FirebaseFirestore.DocumentData>;
@@ -158,6 +159,28 @@ export class FirebaseUsersRepository implements IUsersRepository {
 				throw new InternalServerError({
 					message: "Houve um erro ao tentar deletar o usuário.",
 					errorLocationCode: "REPOS:USERS:DELETE_FAILURE",
+					stack: new Error().stack,
+				});
+			}
+		}, this.retryOpts);
+	}
+
+	async validateCredentials(
+		username: string,
+		userPassword: string
+	): Promise<[boolean, User | null]> {
+		return await retry(async () => {
+			try {
+				const user = await this.col.where("username", "==", username).limit(1).get();
+				if (user.empty || !user.docs[0].exists || !user.docs[0].data())
+					return [false, null];
+				const { password, ...data } = user.docs[0].data() as DatabaseUser;
+				const passwordMatches = await compare(userPassword, password);
+				return [passwordMatches, passwordMatches ? data : null];
+			} catch (err) {
+				throw new InternalServerError({
+					message: "Não foi possível validar suas credenciais.",
+					errorLocationCode: "REPOS:USERS:VALIDATECREDENTIALS_FAILURE",
 					stack: new Error().stack,
 				});
 			}

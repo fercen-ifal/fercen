@@ -11,4 +11,5 @@ export interface IUsersRepository {
 		isEmail?: boolean
 	): Promise<string | null>;
 	delete(userIdOrEmail: string, isEmail?: boolean): Promise<string | null>;
+	validateCredentials(username: string, password: string): Promise<[boolean, User | null]>;
 }
