@@ -1,5 +1,5 @@
 import type { IronSessionOptions } from "iron-session";
-import type { ApiRequestUser } from "entities/User";
+import type { Session } from "entities/Session";
 
 export const sessionOptions: IronSessionOptions = {
 	cookieName: "fercen-session",
@@ -12,6 +12,6 @@ export const sessionOptions: IronSessionOptions = {
 
 declare module "iron-session" {
 	interface IronSessionData {
-		user?: ApiRequestUser;
+		user?: Session;
 	}
 }

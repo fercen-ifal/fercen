@@ -1,11 +1,11 @@
 import { type Permission, Permissions } from "entities/Permissions";
-import type { ApiRequestUser } from "entities/User";
 import { ForbiddenError, UnauthorizedError, ValidationError } from "errors/index";
 import type { ApiRequest } from "models/connect";
 import type { NextApiResponse } from "next";
 import type { NextHandler } from "next-connect";
+import type { Session } from "entities/Session";
 
-export const can = (requiredPermission: Permission, user?: ApiRequestUser) => {
+export const can = (requiredPermission: Permission, user?: Session) => {
 	validateUser(user);
 
 	const authorized = user?.permissions.includes(requiredPermission);
@@ -21,7 +21,7 @@ export const canRequest = (requiredPermission: Permission) => {
 	};
 };
 
-const validateUser = (user?: ApiRequestUser) => {
+const validateUser = (user?: Session) => {
 	if (!user) {
 		throw new UnauthorizedError({
 			errorLocationCode: "MIDDLEWARES:CAN:VALIDATION:UNAUTHORIZED",

@@ -6,7 +6,6 @@ import type { NextApiResponse } from "next";
 import type { RequestHandler } from "next-connect";
 import { invitesRepository, usersRepository } from "providers/index";
 import { hash } from "bcrypt";
-import { AnonymousUserPermissions } from "entities/Permissions";
 import retry from "async-retry";
 import { firestore as FirebaseFirestore } from "firebase-admin";
 
@@ -85,7 +84,7 @@ const postHandler: RequestHandler<ApiRequest, NextApiResponse> = async (req, res
 		email: body.email,
 		password,
 		invite: body.invite,
-		permissions: [...AnonymousUserPermissions, "read:user", "read:session", "update:user"],
+		permissions: ["read:user", "read:session", "update:user"],
 	});
 
 	await invitesRepository.update(
@@ -97,6 +96,6 @@ const postHandler: RequestHandler<ApiRequest, NextApiResponse> = async (req, res
 	return res.status(201).json({ message: "Usuário criado com sucesso.", action: "Faça login." });
 };
 
-export default nc
+export default nc()
 	.get(canRequest("read:user:list"), getHandler)
 	.post(canRequest("create:user"), postHandler);

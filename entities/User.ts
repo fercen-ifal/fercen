@@ -47,12 +47,3 @@ export interface UpdatableUser {
 	googleProvider?: UserProviderConnection;
 	microsoftProvider?: UserProviderConnection;
 }
-
-/**
- * Interface do usuário exclusiva do objeto de request da API.
- */
-export interface ApiRequestUser {
-	id?: string;
-	username?: string;
-	permissions: Permission[];
-}
