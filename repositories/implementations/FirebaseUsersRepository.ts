@@ -125,11 +125,11 @@ export class FirebaseUsersRepository implements IUsersRepository {
 					if (user.empty || !user.docs[0].exists || !user.docs[0].data()) return null;
 					const userData = user.docs[0].data() as DatabaseUser;
 
-					await this.col.doc(userData.id).update({ ...newData });
+					await this.col.doc(userData.id).update(JSON.parse(JSON.stringify(newData)));
 					return userData.id;
 				}
 
-				await this.col.doc(userIdOrEmail).update({ ...newData });
+				await this.col.doc(userIdOrEmail).update(JSON.parse(JSON.stringify(newData)));
 				return userIdOrEmail;
 			} catch (err) {
 				throw new InternalServerError({

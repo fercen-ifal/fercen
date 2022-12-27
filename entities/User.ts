@@ -43,6 +43,7 @@ export interface DatabaseUser extends User {
 export interface UpdatableUser {
 	fullname?: string;
 	email?: string;
+	password?: string;
 	permissions?: Permission[];
 	googleProvider?: UserProviderConnection;
 	microsoftProvider?: UserProviderConnection;

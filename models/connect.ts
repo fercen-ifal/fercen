@@ -34,7 +34,6 @@ const injectRequestMetadata: Middleware<ApiRequest, NextApiResponse> = async (re
 				type: "user",
 				...user,
 			};
-			await req.session.save();
 		}
 	}
 

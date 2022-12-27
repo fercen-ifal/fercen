@@ -64,6 +64,32 @@ const schemas: Record<string, () => Joi.ObjectSchema> = {
 		});
 	},
 
+	fullname: () => {
+		return Joi.object({
+			fullname: Joi.string()
+				.trim()
+				.invalid(null)
+				.regex(/[a-zA-Z\u00C0-\u017F´\s][^_,;:/|\\*&¨%$#@!(){[}\]=+<>\d]{0,}/)
+				.min(5)
+				.max(50)
+				.when("$required.fullname", {
+					is: "required",
+					then: Joi.required(),
+					otherwise: Joi.optional(),
+				})
+				.messages({
+					"any.required": "O campo {#label} é obrigatório.",
+					"any.invalid": "O campo {#label} não pode ser nulo.",
+					"string.empty": "O campo {#label} não pode estar em branco.",
+					"string.base": "O campo {#label} deve ser uma string.",
+					"string.min": "O campo {#label} deve ter, no mínimo, {#limit} caracteres.",
+					"string.max": "O campo {#label} deve ter, no máximo, {#limit} caracteres.",
+					"string.pattern.base":
+						"O campo {#label} deve ter apenas letras ou caracteres para nomes.",
+				}),
+		});
+	},
+
 	username: () => {
 		return Joi.object({
 			username: Joi.string()
@@ -123,6 +149,29 @@ const schemas: Record<string, () => Joi.ObjectSchema> = {
 				.trim()
 				.invalid(null)
 				.when("$required.password", {
+					is: "required",
+					then: Joi.required(),
+					otherwise: Joi.optional(),
+				})
+				.messages({
+					"any.required": "O campo {#label} é obrigatório.",
+					"any.invalid": "O campo {#label} não pode ser nulo.",
+					"string.empty": "O campo {#label} não pode estar em branco.",
+					"string.base": "O campo {#label} deve ser uma string.",
+					"string.min": "O campo {#label} deve ter, no mínimo, {#limit} caracteres.",
+					"string.max": "O campo {#label} deve ter, no máximo, {#limit} caracteres.",
+				}),
+		});
+	},
+
+	newPassword: function () {
+		return Joi.object({
+			newPassword: Joi.string()
+				.min(8)
+				.max(72)
+				.trim()
+				.invalid(null)
+				.when("$required.newPassword", {
 					is: "required",
 					then: Joi.required(),
 					otherwise: Joi.optional(),
