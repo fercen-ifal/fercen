@@ -67,7 +67,7 @@ const putHandler: RequestHandler<ApiRequest, NextApiResponse> = async (req, res)
 			previous.push(label);
 			return previous;
 		}, [] as string[])
-		.join();
+		.join(", ");
 
 	await usersRepository.update(req.session.user?.type === "user" ? req.session.user.id : "", {
 		...body,
@@ -80,12 +80,12 @@ const putHandler: RequestHandler<ApiRequest, NextApiResponse> = async (req, res)
 			subject: "FERCEN | Alteração de dados na sua conta",
 		},
 		{
-			template: "alerta-dados-alterados",
+			template: "d-3d4f1c6727c147318328c7e26ac012d0",
 			variables: {
 				username: req.session.user?.type === "user" ? req.session.user.username : "",
 				changes,
 				// TODO: Change this to the actual website url
-				websiteUrl: "/",
+				url: "/",
 			},
 		}
 	);

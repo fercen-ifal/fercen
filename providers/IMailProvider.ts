@@ -5,7 +5,7 @@ export interface IMailProviderContext {
 }
 
 export interface IMailProviderSettings {
-	template?: string;
+	template: string;
 	variables?: Record<string, string>;
 }
 

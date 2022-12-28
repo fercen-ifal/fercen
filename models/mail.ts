@@ -1,11 +1,5 @@
-import formData from "form-data";
-import Mailgun from "mailgun.js";
+import mailing from "@sendgrid/mail";
 
-const mailgun = new Mailgun(formData);
+mailing.setApiKey(String(process.env.MAILING_API_KEY));
 
-export const mailing = mailgun.client({
-	username: "api",
-	key: process.env.MAILING_API_KEY || "",
-});
-
-export const domain = String(process.env.MAILING_DOMAIN);
+export default mailing;

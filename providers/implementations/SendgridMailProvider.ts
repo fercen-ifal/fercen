@@ -4,10 +4,10 @@ import type {
 	IMailProviderSettings,
 } from "providers/IMailProvider";
 import retry from "async-retry";
-import { domain, mailing } from "models/mail";
+import mailing from "models/mail";
 import { InternalServerError } from "errors/index";
 
-export class MailgunMailProvider implements IMailProvider {
+export class SendgridMailProvider implements IMailProvider {
 	private readonly retryOpts: retry.Options;
 
 	constructor() {
@@ -17,12 +17,15 @@ export class MailgunMailProvider implements IMailProvider {
 	async send(context: IMailProviderContext, settings: IMailProviderSettings): Promise<void> {
 		return await retry(async () => {
 			try {
-				await mailing.messages.create(domain, {
-					from: `${context.from || "FERCEN"} <postmaster@${domain}>`,
+				await mailing.send({
 					to: context.to,
+					from: context.from || "Equipe FERCEN <jpnm1@aluno.ifal.edu.br>",
 					subject: context.subject,
-					template: settings.template || "",
-					"h:X-Mailgun-Variables": JSON.stringify(settings.variables),
+					templateId: settings.template,
+					dynamicTemplateData: {
+						subject: context.subject,
+						...settings.variables,
+					},
 				});
 			} catch (err) {
 				throw new InternalServerError({

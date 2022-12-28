@@ -1,3 +1,3 @@
-import { MailgunMailProvider } from "./implementations/MailgunMailProvider";
+import { SendgridMailProvider } from "./implementations/SendgridMailProvider";
 
-export const mailProvider = new MailgunMailProvider();
+export const mailProvider = new SendgridMailProvider();
