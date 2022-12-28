@@ -4,7 +4,7 @@ import nc, { type ApiRequest } from "models/connect";
 import validator from "models/validator";
 import type { NextApiResponse } from "next";
 import type { RequestHandler } from "next-connect";
-import { usersRepository } from "providers/index";
+import { usersRepository } from "repositories/index";
 
 interface PostHandlerBody {
 	username: string;

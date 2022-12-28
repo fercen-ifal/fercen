@@ -4,7 +4,7 @@ import nc, { type ApiRequest } from "models/connect";
 import validator from "models/validator";
 import type { NextApiResponse } from "next";
 import type { RequestHandler } from "next-connect";
-import { invitesRepository, usersRepository } from "providers/index";
+import { invitesRepository, usersRepository } from "repositories/index";
 import { hash } from "bcrypt";
 import retry from "async-retry";
 import { firestore as FirebaseFirestore } from "firebase-admin";

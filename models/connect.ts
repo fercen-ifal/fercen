@@ -12,7 +12,7 @@ import nextConnect, { type Middleware } from "next-connect";
 import { v4 as uuid } from "uuid";
 import { ironSession } from "iron-session/express";
 import { sessionOptions } from "./session";
-import { usersRepository } from "providers/index";
+import { usersRepository } from "repositories/index";
 
 export interface ApiRequest extends NextApiRequest {
 	requestId?: string;

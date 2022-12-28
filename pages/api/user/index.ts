@@ -4,9 +4,10 @@ import nc, { type ApiRequest } from "models/connect";
 import validator from "models/validator";
 import type { NextApiResponse } from "next";
 import type { RequestHandler } from "next-connect";
-import { usersRepository } from "providers/index";
+import { usersRepository } from "repositories/index";
 import retry from "async-retry";
 import { hash } from "bcrypt";
+import { mailProvider } from "providers/index";
 
 interface PutHandlerBody {
 	fullname?: string;
@@ -55,10 +56,39 @@ const putHandler: RequestHandler<ApiRequest, NextApiResponse> = async (req, res)
 		{ retries: 3, minTimeout: 100, maxTimeout: 200 }
 	);
 
+	const changes = Object.keys(JSON.parse(JSON.stringify({ ...body, newPassword })))
+		.reduce((previous, current) => {
+			let label = "";
+
+			if (current === "fullname") label = "Nome completo";
+			else if (current === "email") label = "Email";
+			else if (current === "newPassword") label = "Senha";
+
+			previous.push(label);
+			return previous;
+		}, [] as string[])
+		.join();
+
 	await usersRepository.update(req.session.user?.type === "user" ? req.session.user.id : "", {
 		...body,
 		password: newPassword ? newPasswordHash : undefined,
 	});
+
+	await mailProvider.send(
+		{
+			to: req.session.user?.type === "user" ? req.session.user.email : "",
+			subject: "FERCEN | Alteração de dados na sua conta",
+		},
+		{
+			template: "alerta-dados-alterados",
+			variables: {
+				username: req.session.user?.type === "user" ? req.session.user.username : "",
+				changes,
+				// TODO: Change this to the actual website url
+				websiteUrl: "/",
+			},
+		}
+	);
 
 	return res.status(200).json({ message: "Seu usuário foi atualizado com sucesso." });
 };

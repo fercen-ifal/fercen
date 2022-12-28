@@ -1,7 +1,7 @@
 import type { DatabaseUser, User, UpdatableUser } from "entities/User";
 import { InternalServerError } from "errors/index";
 import { firestore } from "models/database";
-import type { IUsersRepository } from "providers/IUsersRepository";
+import type { IUsersRepository } from "repositories/IUsersRepository";
 import { v4 as uuid } from "uuid";
 import retry from "async-retry";
 import { firestore as FirebaseFirestore } from "firebase-admin";
