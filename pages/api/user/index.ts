@@ -26,12 +26,12 @@ const putHandler: RequestHandler<ApiRequest, NextApiResponse> = async (req, res)
 		password: "required",
 	});
 
-	const [canLogin] = await usersRepository.validateCredentials(
+	const [canProceed] = await usersRepository.validateCredentials(
 		req.session.user?.type === "user" ? req.session.user.username : "",
 		password
 	);
 
-	if (!canLogin) {
+	if (!canProceed) {
 		throw new ValidationError({
 			message: "Sua senha não confere.",
 			action: "Altere seus dados e tente novamente.",
