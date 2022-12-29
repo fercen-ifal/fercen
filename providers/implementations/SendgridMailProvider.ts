@@ -7,6 +7,13 @@ import retry from "async-retry";
 import mailing from "models/mail";
 import { InternalServerError } from "errors/index";
 
+/**
+ * Classe que implementa o provedor de emails da Sendgrid.
+ *
+ * @class SendgridMailProvider
+ * @typedef {SendgridMailProvider}
+ * @implements {IMailProvider}
+ */
 export class SendgridMailProvider implements IMailProvider {
 	private readonly retryOpts: retry.Options;
 

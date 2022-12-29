@@ -1,10 +1,20 @@
 import { ValidationError } from "errors/index";
 import Joi from "joi";
 
+/**
+ * Valida o objeto passado em relação as `keys` informadas.
+ *
+ * @param {Object} object Objeto que será validado.
+ * @param {(Record<string, "required" | "optional">)} keys Keys do objeto que
+ * devem ser validadas, podendo ser obrigatórias ou opcionais, e qualquer key
+ * informada que não estiver neste objeto será ignorada.
+ *
+ * @returns {ReturnType} Objeto validado do tipo `ReturnType`.
+ */
 export default function validator<ReturnType = any>(
 	object: Object,
 	keys: Record<string, "required" | "optional">
-) {
+): ReturnType {
 	try {
 		object = JSON.parse(JSON.stringify(object));
 	} catch (err) {

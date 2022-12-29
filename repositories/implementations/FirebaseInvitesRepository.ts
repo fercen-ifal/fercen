@@ -6,6 +6,13 @@ import type { IInvitesRepository } from "repositories/IInvitesRepository";
 import type { Invite, UpdatableInvite } from "entities/Invite";
 import { nanoid } from "nanoid";
 
+/**
+ * Classe que implementa o repositório de convites do Firestore.
+ *
+ * @class FirebaseInvitesRepository
+ * @typedef {FirebaseInvitesRepository}
+ * @implements {IInvitesRepository}
+ */
 export class FirebaseInvitesRepository implements IInvitesRepository {
 	private readonly col: FirebaseFirestore.CollectionReference<FirebaseFirestore.DocumentData>;
 	private readonly retryOpts: retry.Options;

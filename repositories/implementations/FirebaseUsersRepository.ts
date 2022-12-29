@@ -7,6 +7,13 @@ import retry from "async-retry";
 import { firestore as FirebaseFirestore } from "firebase-admin";
 import { compare } from "bcrypt";
 
+/**
+ * Classe que implementa o repositório de usuários do Firestore.
+ *
+ * @class FirebaseUsersRepository
+ * @typedef {FirebaseUsersRepository}
+ * @implements {IUsersRepository}
+ */
 export class FirebaseUsersRepository implements IUsersRepository {
 	private readonly col: FirebaseFirestore.CollectionReference<FirebaseFirestore.DocumentData>;
 	private readonly retryOpts: retry.Options;

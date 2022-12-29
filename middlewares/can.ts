@@ -2,9 +2,16 @@ import { type Permission, Permissions } from "entities/Permissions";
 import { ForbiddenError, UnauthorizedError, ValidationError } from "errors/index";
 import type { ApiRequest } from "models/connect";
 import type { NextApiResponse } from "next";
-import type { NextHandler } from "next-connect";
+import type { Middleware, NextHandler } from "next-connect";
 import type { Session } from "entities/Session";
 
+/**
+ * Verifica se o usuário possui a permissão necessária.
+ * Se a verificação der `false`, joga o erro `ForbiddenError`.
+ *
+ * @param {Permission} requiredPermission Permissão requerida.
+ * @param {?Session} [user] Usuário em formato de sessão.
+ */
 export const can = (requiredPermission: Permission, user?: Session) => {
 	validateUser(user);
 
@@ -14,13 +21,29 @@ export const can = (requiredPermission: Permission, user?: Session) => {
 	}
 };
 
-export const canRequest = (requiredPermission: Permission) => {
+/**
+ * Transforma a função `can` em middleware.
+ * @see {@link can}
+ *
+ * @param {Permission} requiredPermission Permissão requerida.
+ *
+ * @returns {Middleware<ApiRequest, NextApiResponse>} Middleware.
+ */
+export const canRequest = (
+	requiredPermission: Permission
+): Middleware<ApiRequest, NextApiResponse> => {
 	return (req: ApiRequest, res: NextApiResponse, next: NextHandler) => {
 		can(requiredPermission, req.session.user);
 		next();
 	};
 };
 
+/**
+ * Valida o objeto do usuário.
+ * Se algum parâmetro estiver inválido, joga o erro `ValidationError` ou `UnauthorizedError`.
+ *
+ * @param {?Session} [user] Usuário em formato de sessão.
+ */
 const validateUser = (user?: Session) => {
 	if (!user) {
 		throw new UnauthorizedError({

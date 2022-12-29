@@ -1,3 +1,4 @@
+/** Permissões disponíveis para uso no sistema.  */
 export const Permissions = {
 	// User related
 	"create:user": "create:user",
@@ -12,6 +13,8 @@ export const Permissions = {
 	"read:session": "read:session",
 } as const;
 
+/** Permissões padrão para usuários anônimos.  */
 export const AnonymousUserPermissions = ["create:user", "create:session"] as const;
 
+/** Tipo contendo uma das permissões existentes.  */
 export type Permission = keyof typeof Permissions;
