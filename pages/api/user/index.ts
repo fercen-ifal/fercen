@@ -8,6 +8,7 @@ import { usersRepository } from "repositories/index";
 import retry from "async-retry";
 import { hash } from "bcrypt";
 import { mailProvider } from "providers/index";
+import { getURL } from "models/webserver";
 
 interface PutHandlerBody {
 	fullname?: string;
@@ -77,15 +78,15 @@ const putHandler: RequestHandler<ApiRequest, NextApiResponse> = async (req, res)
 	await mailProvider.send(
 		{
 			to: req.session.user?.type === "user" ? req.session.user.email : "",
-			subject: "FERCEN | Alteração de dados na sua conta",
+			subject: "FERCEN | Alteração de dados",
 		},
 		{
 			template: "d-3d4f1c6727c147318328c7e26ac012d0",
 			variables: {
 				username: req.session.user?.type === "user" ? req.session.user.username : "",
 				changes,
-				// TODO: Change this to the actual website url
-				url: "/",
+				// TODO: Update path according to actual page
+				url: new URL("/conta", getURL()).toString(),
 			},
 		}
 	);
