@@ -201,10 +201,10 @@ const schemas: Record<string, () => Joi.ObjectSchema> = {
 		return Joi.object({
 			invite: Joi.string()
 				.trim()
-				.alphanum()
+				.regex(/[A-Za-z0-9_-]{7,7}/)
 				.invalid(null)
-				.min(5)
-				.max(10)
+				.min(7)
+				.max(7)
 				.when("$required.invite", {
 					is: "required",
 					then: Joi.required(),
@@ -215,10 +215,36 @@ const schemas: Record<string, () => Joi.ObjectSchema> = {
 					"any.invalid": "O campo {#label} não pode ser nulo.",
 					"string.empty": "O campo {#label} não pode estar em branco.",
 					"string.base": "O campo {#label} deve ser uma string.",
-					"string.alphanum":
-						"O campo {#label} deve conter apenas caracteres alfanuméricos.",
 					"string.min": "O campo {#label} deve ter, no mínimo, {#limit} caracteres.",
 					"string.max": "O campo {#label} deve ter, no máximo, {#limit} caracteres.",
+					"string.pattern.base":
+						"O campo {#label} deve ter apenas letras, números e alguns símbolos especiais.",
+				}),
+		});
+	},
+
+	recoveryCode: () => {
+		return Joi.object({
+			recoveryCode: Joi.string()
+				.trim()
+				.regex(/[A-Za-z0-9_-]{8,8}/)
+				.invalid(null)
+				.min(8)
+				.max(8)
+				.when("$required.recoveryCode", {
+					is: "required",
+					then: Joi.required(),
+					otherwise: Joi.optional(),
+				})
+				.messages({
+					"any.required": "O campo {#label} é obrigatório.",
+					"any.invalid": "O campo {#label} não pode ser nulo.",
+					"string.empty": "O campo {#label} não pode estar em branco.",
+					"string.base": "O campo {#label} deve ser uma string.",
+					"string.min": "O campo {#label} deve ter, no mínimo, {#limit} caracteres.",
+					"string.max": "O campo {#label} deve ter, no máximo, {#limit} caracteres.",
+					"string.pattern.base":
+						"O campo {#label} deve ter apenas letras, números e alguns símbolos especiais.",
 				}),
 		});
 	},
