@@ -17,6 +17,7 @@ export interface RecoveryCode {
 	usedAt?: FirebaseFirestore.Timestamp;
 }
 
+/** Interface do código de recuperação contendo apenas dados atualizáveis. */
 export interface UpdatableRecoveryCode {
 	used?: RecoveryCode["used"];
 	usedAt?: RecoveryCode["usedAt"];
