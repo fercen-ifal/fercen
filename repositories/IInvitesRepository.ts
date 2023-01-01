@@ -23,6 +23,15 @@ export interface IInvitesRepository {
 	read(idOrPublicId: string, isPublicId?: boolean): Promise<Invite | null>;
 
 	/**
+	 * Busca um convite no banco de dados pelo ``targetEmail``.
+	 *
+	 * @param {string} targetEmail Email do destinatário do convite.
+	 *
+	 * @returns {(Promise<Invite | null>)} Promessa do convite ou nulo se não encontrar.
+	 */
+	readByTarget(targetEmail: string): Promise<Invite | null>;
+
+	/**
 	 * Busca todos os convites no banco de dados.
 	 *
 	 * @returns {Promise<Invite[]>} Promessa de uma lista de convites.

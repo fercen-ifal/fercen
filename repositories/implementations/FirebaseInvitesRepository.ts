@@ -75,6 +75,27 @@ export class FirebaseInvitesRepository implements IInvitesRepository {
 		}, this.retryOpts);
 	}
 
+	async readByTarget(targetEmail: string): Promise<Invite | null> {
+		return await retry(async () => {
+			try {
+				const invite = await this.col
+					.where("targetEmail", "==", targetEmail)
+					.limit(1)
+					.get();
+				if (invite.empty || !invite.docs[0].exists || !invite.docs[0].data()) return null;
+				const data = invite.docs[0].data() as Invite;
+
+				return data;
+			} catch (err) {
+				throw new InternalServerError({
+					message: "Houve um erro ao tentar ler o convite pelo email.",
+					errorLocationCode: "REPOS:INVITES:READBYTARGETEMAIL_FAILURE",
+					stack: new Error().stack,
+				});
+			}
+		}, this.retryOpts);
+	}
+
 	async readAll(): Promise<Invite[]> {
 		try {
 			let invites: Invite[] = [];

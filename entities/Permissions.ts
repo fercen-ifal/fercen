@@ -11,6 +11,10 @@ export const Permissions = {
 	// Session related
 	"create:session": "create:session",
 	"read:session": "read:session",
+
+	// Invite related
+	"create:invite": "create:invite",
+	"read:invite": "read:invite",
 } as const;
 
 /** Permissões padrão para usuários anônimos.  */
