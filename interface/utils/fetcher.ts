@@ -19,7 +19,7 @@ export const fetcher = async <ReturnType = Object, BodyType = Object>(
 ): Promise<FetcherReturn<ReturnType>> => {
 	const res = await fetch(url, {
 		...init,
-		method: init?.method || body ? "POST" : "GET",
+		method: init?.method ? init.method : body ? "POST" : "GET",
 		headers: {
 			...init?.headers,
 			Accept: "application/json",
