@@ -1,6 +1,7 @@
 import React from "react";
 import "./globals.css";
 import { Poppins } from "@next/font/google";
+import { Header } from "interface/components/Header";
 
 const poppins = Poppins({
 	subsets: ["latin"],
@@ -11,7 +12,10 @@ const poppins = Poppins({
 export default function RootLayout({ children }: { children: React.ReactNode }) {
 	return (
 		<html lang="pt-br" dir="ltr">
-			<body className={`${poppins.variable} font-sans`}>{children}</body>
+			<body className={`${poppins.variable} font-sans`}>
+				<Header />
+				{children}
+			</body>
 		</html>
 	);
 }

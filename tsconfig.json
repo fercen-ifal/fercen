@@ -27,6 +27,7 @@
 			"models/*": ["models/*"],
 			"interface/*": ["interface/*"],
 			"providers/*": ["providers/*"],
+			"public/*": ["public/*"],
 			"repositories/*": ["repositories/*"]
 		}
 	},
