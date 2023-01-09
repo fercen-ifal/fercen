@@ -11,11 +11,12 @@ import React, {
 
 export interface TextFieldProps extends HTMLProps<HTMLInputElement> {
 	placeholder: string;
+	value?: string;
 }
 
 export const TextField = memo(
 	forwardRef(function Component({ children, ...props }: PropsWithChildren<TextFieldProps>, ref) {
-		const [showLabel, setShowLabel] = useState(false);
+		const [showLabel, setShowLabel] = useState(props.value ? props.value.length > 0 : false);
 
 		return (
 			<>
