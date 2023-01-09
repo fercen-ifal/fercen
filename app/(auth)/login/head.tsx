@@ -2,7 +2,7 @@ import { getURL } from "models/webserver";
 import React from "react";
 
 export default async function Head() {
-	const title = "Ferramenta de Controle Energético | FERCEN";
+	const title = "Faça login | FERCEN";
 	const description = "Ferramenta de Controle Energético do IFAL Campus Arapiraca.";
 	const url = getURL();
 	const image = "";

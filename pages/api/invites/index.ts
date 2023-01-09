@@ -69,7 +69,7 @@ const postHandler: RequestHandler<ApiRequest, NextApiResponse> = async (req, res
 	);
 
 	return res
-		.status(200)
+		.status(201)
 		.json({ message: "Convite criado e enviado ao destinatário com sucesso." });
 };
 

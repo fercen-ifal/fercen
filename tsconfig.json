@@ -25,6 +25,7 @@
 			"errors/*": ["errors/*"],
 			"middlewares/*": ["middlewares/*"],
 			"models/*": ["models/*"],
+			"interface/*": ["interface/*"],
 			"providers/*": ["providers/*"],
 			"repositories/*": ["repositories/*"]
 		}
