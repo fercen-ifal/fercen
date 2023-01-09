@@ -62,7 +62,6 @@ const postHandler: RequestHandler<ApiRequest, NextApiResponse> = async (req, res
 			template: "d-9705267831ad4539ab4bc81f4a8b5c40",
 			variables: {
 				invite,
-				// TODO: Update path according to actual page
 				url: new URL(`/cadastrar?invite=${invite}`, getURL()).toString(),
 			},
 		}
