@@ -7,19 +7,25 @@ import { getURL } from "models/webserver";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import React, { useCallback, useRef, useState, type FC, type FormEvent } from "react";
+import { ImGoogle, ImSpinner2 } from "react-icons/im";
+import { BsMicrosoft } from "react-icons/bs";
 
 export const Form: FC = () => {
 	const router = useRouter();
 	const usernameInputRef = useRef<HTMLInputElement>(null);
 	const passwordInputRef = useRef<HTMLInputElement>(null);
+
 	const [alertText, setAlertText] = useState("");
+	const [isLoading, setIsLoading] = useState(false);
 
 	const onFormSubmit = useCallback(
 		async (event: FormEvent<HTMLFormElement>) => {
 			event.preventDefault();
+			setIsLoading(true);
 
 			if (!usernameInputRef.current?.value || !passwordInputRef.current?.value) {
 				setAlertText("Preencha os campos.");
+				setIsLoading(false);
 				return;
 			}
 
@@ -29,16 +35,17 @@ export const Form: FC = () => {
 			});
 
 			if (error) {
-				console.error(error);
 				setAlertText(
 					`${error.message || "Não foi possível fazer login."} ${
 						error.action || "Tente novamente."
 					}`
 				);
+				setIsLoading(false);
 				return;
 			}
 
 			// TODO: Update path according to actual page
+			setIsLoading(false);
 			return router.push("/conta");
 		},
 		[router]
@@ -68,11 +75,12 @@ export const Form: FC = () => {
 						<Link href="/recuperar/senha">Esqueceu sua senha?</Link>
 					</div>
 					{alertText ? <span className="text-sm text-alt-red">{alertText}</span> : null}
-					{/* // TODO: Add loading animation and block while loading */}
 					<button
 						type="submit"
-						className="bg-primary-dark text-white px-2 py-1.5 rounded-sm outline-primary-darker duration-200 hover:brightness-95 active:brightness-90"
+						className="flex justify-center items-center gap-3 bg-primary-dark text-white px-2 py-1.5 rounded-sm outline-primary-darker duration-200 hover:brightness-95 active:brightness-90 disabled:brightness-75 disabled:cursor-not-allowed"
+						disabled={isLoading}
 					>
+						{isLoading ? <ImSpinner2 className="text-lg animate-spin" /> : null}
 						Entrar
 					</button>
 				</form>
@@ -82,12 +90,18 @@ export const Form: FC = () => {
 						agora para fazer login de forma mais rápida.
 					</span>
 					<div className="flex flex-col sm:flex-row justify-between gap-3">
-						{/* //TODO: Add google icon */}
-						<button className="w-full px-2 py-1.5 bg-alt-red text-white rounded-sm duration-200 hover:brightness-95 active:brightness-90">
+						<button
+							type="button"
+							className="flex justify-center items-center gap-3 w-full px-2 py-1.5 bg-alt-red text-white rounded-sm duration-200 hover:brightness-95 active:brightness-90"
+						>
+							<ImGoogle />
 							Entre com Google
 						</button>
-						{/* // TODO: Add microsoft icon */}
-						<button className="w-full px-2 py-1.5 bg-alt-blue text-white rounded-sm duration-200 hover:brightness-95 active:brightness-90">
+						<button
+							type="button"
+							className="flex justify-center items-center gap-3 w-full px-2 py-1.5 bg-alt-blue text-white rounded-sm duration-200 hover:brightness-95 active:brightness-90"
+						>
+							<BsMicrosoft />
 							Entre com Microsoft
 						</button>
 					</div>

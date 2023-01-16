@@ -7,6 +7,7 @@ import { getURL } from "models/webserver";
 import Link from "next/link";
 import { useRouter, useSearchParams } from "next/navigation";
 import React, { useCallback, useEffect, useRef, useState, type FC, type FormEvent } from "react";
+import { ImSpinner2 } from "react-icons/im";
 
 export const Form: FC = () => {
 	const router = useRouter();
@@ -18,10 +19,12 @@ export const Form: FC = () => {
 	const inviteInputRef = useRef<HTMLInputElement>(null);
 
 	const [alertText, setAlertText] = useState("");
+	const [isLoading, setIsLoading] = useState(false);
 
 	const onFormSubmit = useCallback(
 		async (event: FormEvent<HTMLFormElement>) => {
 			event.preventDefault();
+			setIsLoading(true);
 
 			if (
 				!usernameInputRef.current?.value ||
@@ -30,6 +33,7 @@ export const Form: FC = () => {
 				!inviteInputRef.current?.value
 			) {
 				setAlertText("Preencha os campos.");
+				setIsLoading(false);
 				return;
 			}
 
@@ -47,9 +51,11 @@ export const Form: FC = () => {
 						error.action || "Tente novamente."
 					}`
 				);
+				setIsLoading(false);
 				return;
 			}
 
+			setIsLoading(false);
 			return router.push("/login");
 		},
 		[router]
@@ -97,11 +103,12 @@ export const Form: FC = () => {
 						<Link href="/login">Já possui uma conta?</Link>
 					</div>
 					{alertText ? <span className="text-sm text-alt-red">{alertText}</span> : null}
-					{/* // TODO: Add loading animation and block while loading */}
 					<button
 						type="submit"
-						className="bg-primary-dark text-white px-2 py-1.5 rounded-sm outline-primary-darker duration-200 hover:brightness-95 active:brightness-90"
+						className="flex justify-center items-center gap-3 bg-primary-dark text-white px-2 py-1.5 rounded-sm outline-primary-darker duration-200 hover:brightness-95 active:brightness-90 disabled:brightness-75 disabled:cursor-not-allowed"
+						disabled={isLoading}
 					>
+						{isLoading ? <ImSpinner2 className="text-lg animate-spin" /> : null}
 						Cadastrar
 					</button>
 				</form>

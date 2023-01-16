@@ -6,6 +6,7 @@ import { fetcher } from "interface/utils/fetcher";
 import { getURL } from "models/webserver";
 import Link from "next/link";
 import React, { useCallback, useRef, useState, type FC, type FormEvent } from "react";
+import { ImSpinner2 } from "react-icons/im";
 
 export const Form: FC = () => {
 	const usernameInputRef = useRef<HTMLInputElement>(null);
@@ -15,14 +16,17 @@ export const Form: FC = () => {
 	const [hasCode, setHasCode] = useState(false);
 	const [alertText, setAlertText] = useState("");
 	const [successText, setSuccessText] = useState("");
+	const [isLoading, setIsLoading] = useState(false);
 
 	const onFormSubmit = useCallback(
 		async (event: FormEvent<HTMLFormElement>) => {
 			event.preventDefault();
+			setIsLoading(true);
 
 			if (hasCode) {
 				if (!recoveryCodeInputRef.current?.value || !newPasswordInputRef.current?.value) {
 					setAlertText("Preencha os campos.");
+					setIsLoading(false);
 					return;
 				}
 
@@ -42,32 +46,40 @@ export const Form: FC = () => {
 							error.action || "Tente novamente."
 						}`
 					);
+					setIsLoading(false);
 					return;
 				}
 
 				setSuccessText("Senha alterada com sucesso.");
-			} else {
-				if (!usernameInputRef.current?.value) {
-					setAlertText("Preencha os campos.");
-					return;
-				}
-
-				const { error } = await fetcher(new URL("/api/user/recover", getURL()), {
-					username: usernameInputRef.current.value,
-				});
-
-				if (error) {
-					console.error(error);
-					setAlertText(
-						`${error.message || "Não foi possível pedir a recuperação de senha."} ${
-							error.action || "Tente novamente."
-						}`
-					);
-					return;
-				}
-
-				setHasCode(true);
+				setIsLoading(false);
+				return;
 			}
+
+			// if hasCode === false
+
+			if (!usernameInputRef.current?.value) {
+				setAlertText("Preencha os campos.");
+				setIsLoading(false);
+				return;
+			}
+
+			const { error } = await fetcher(new URL("/api/user/recover", getURL()), {
+				username: usernameInputRef.current.value,
+			});
+
+			if (error) {
+				console.error(error);
+				setAlertText(
+					`${error.message || "Não foi possível pedir a recuperação de senha."} ${
+						error.action || "Tente novamente."
+					}`
+				);
+				setIsLoading(false);
+				return;
+			}
+
+			setHasCode(true);
+			setIsLoading(false);
 		},
 		[hasCode]
 	);
@@ -116,16 +128,18 @@ export const Form: FC = () => {
 						) : null}
 						<Link href="/login">Voltar para o login</Link>
 					</div>
+
 					{successText ? (
 						<span className="text-sm text-alt-blue">{successText}</span>
 					) : alertText ? (
 						<span className="text-sm text-alt-red">{alertText}</span>
 					) : null}
-					{/* // TODO: Add loading animation and block while loading */}
+
 					<button
 						type="submit"
-						className="bg-primary-dark text-white px-2 py-1.5 rounded-sm outline-primary-darker duration-200 hover:brightness-95 active:brightness-90"
+						className="flex justify-center items-center gap-3 bg-primary-dark text-white px-2 py-1.5 rounded-sm outline-primary-darker duration-200 hover:brightness-95 active:brightness-90 disabled:brightness-75 disabled:cursor-not-allowed"
 					>
+						{isLoading ? <ImSpinner2 className="text-lg animate-spin" /> : null}
 						{hasCode ? "Alterar senha" : "Pedir código de recuperação"}
 					</button>
 				</form>
