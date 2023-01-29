@@ -36,7 +36,7 @@ export const Header = memo(function Component() {
 								? "/"
 								: "/login"
 						}
-						className="h-fit border border-primary-dark rounded-sm px-2 py-1.5 cursor-pointer duration-200 hover:bg-slate-300/10 hover:brightness-95"
+						className="h-fit border border-primary-dark rounded px-2 py-1.5 cursor-pointer duration-200 hover:bg-slate-300/10 hover:brightness-95 print:hidden"
 					>
 						{session
 							? "Ir ao painel"

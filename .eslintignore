@@ -2,6 +2,7 @@ node_modules/
 emulators/
 coverage/
 .vercel/
+.yarn/
 .next/
 build/
 out/
