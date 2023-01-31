@@ -1,6 +1,6 @@
 import Link from "next/link";
 import React from "react";
-import { Globe } from "./globe";
+import { Globe } from "./Globe";
 
 export default function Page() {
 	return (

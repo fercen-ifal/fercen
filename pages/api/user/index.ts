@@ -85,8 +85,7 @@ const putHandler: RequestHandler<ApiRequest, NextApiResponse> = async (req, res)
 			variables: {
 				username: req.session.user?.type === "user" ? req.session.user.username : "",
 				changes,
-				// TODO: Update path according to actual page
-				url: new URL("/conta", getURL()).toString(),
+				url: new URL("/painel/conta", getURL()).toString(),
 			},
 		}
 	);

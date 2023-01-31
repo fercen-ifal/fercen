@@ -44,9 +44,8 @@ export const Form: FC = () => {
 				return;
 			}
 
-			// TODO: Update path according to actual page
 			setIsLoading(false);
-			return router.push("/conta");
+			return router.push("/painel/conta");
 		},
 		[router]
 	);

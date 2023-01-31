@@ -10,6 +10,7 @@ import logo from "public/logo-horizontal.webp";
 
 export const Header = memo(function Component() {
 	const pathname = usePathname();
+	// TODO: Fix useSession
 	const { session } = useSession();
 
 	return (
@@ -23,7 +24,7 @@ export const Header = memo(function Component() {
 					<Image src={logo} alt="Logo da FERCEN" className="w-full max-w-xs" />
 				)}
 
-				{pathname === "/conta" && session ? (
+				{pathname?.startsWith("/painel") && session ? (
 					<span>
 						Logado como: <strong>{session.username}</strong>
 					</span>

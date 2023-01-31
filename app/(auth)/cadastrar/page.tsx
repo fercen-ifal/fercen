@@ -1,10 +1,8 @@
-// import { getSession } from "interface/hooks/getSession";
+import { getSession } from "interface/hooks/getSession";
 import { Form } from "./Form";
 
 export default async function Page() {
-	// TODO: Remove comment when initial phase ends
-	// TODO: Update path according to actual page
-	/* await getSession({ redirect: "/conta", redirectIfFound: true }); */
+	await getSession({ redirect: "/painel/conta", redirectIfFound: true });
 
 	return (
 		<main className="flex flex-col lg:flex-row justify-between 2xl:justify-center items-center h-full px-10 lg:px-20 pt-32 gap-10 lg:gap-32 2xl:gap-52 bg-primary-main">
