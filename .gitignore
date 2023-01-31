@@ -9,6 +9,7 @@ out/
 
 next-env.d.ts
 *.tsbuildinfo
+.yarnrc.yml
 yarn.lock
 *.log
 .env
