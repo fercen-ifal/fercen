@@ -2,7 +2,7 @@
 	"name": "fercen",
 	"description": "Ferramenta de Controle Energético do IFAL Campus Arapiraca.",
 	"author": "FERCEN <jpnm1@aluno.ifal.edu.br>",
-	"version": "0.18.0",
+	"version": "0.18.1",
 	"license": "GPL-3.0",
 	"scripts": {
 		"build": "next build",
@@ -11,7 +11,7 @@
 		"emulators": "firebase emulators:start --import=./emulators --export-on-exit",
 		"lint": "next lint",
 		"format": "prettier . --write",
-		"commit": "yarn format && git add . && cz c"
+		"commit": "yarn format && git add . && git cz"
 	},
 	"dependencies": {
 		"@headlessui/react": "1.7.7",
