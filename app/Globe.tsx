@@ -1,8 +1,8 @@
 "use client";
 
-import { Canvas, useLoader, useFrame } from "@react-three/fiber";
-import React, { type FC, memo, useRef } from "react";
-import { BufferGeometry, Color, Material, Mesh, TextureLoader } from "three";
+import { Canvas, useFrame } from "@react-three/fiber";
+import React, { type FC, memo, useRef, useEffect, useState } from "react";
+import { BufferGeometry, Color, Material, Mesh, Texture, TextureLoader } from "three";
 
 const GlobeAnimation: FC<{
 	mesh: React.MutableRefObject<Mesh<BufferGeometry, Material | Material[]>>;
@@ -11,7 +11,7 @@ const GlobeAnimation: FC<{
 	useFrame(() => {
 		if (!animate) return;
 
-		mesh.current.rotation.x += Math.random() * (0.008 - 0.002) + 0.002;
+		mesh.current.rotation.x += Math.random() * (0.006 - 0.002) + 0.002;
 		mesh.current.rotation.y += Math.random() * (0.005 - 0.0035) + 0.0035;
 	});
 
@@ -21,12 +21,18 @@ const GlobeAnimation: FC<{
 export const Globe = memo(function Component() {
 	const meshRef = useRef<Mesh<BufferGeometry, Material | Material[]>>(null!);
 
-	const [earthTexture, earthBumpMap, earthSpecMap] = useLoader(TextureLoader, [
-		"/materials/earth.jpg",
-		"/materials/earth-bump.jpg",
-		"/materials/earth-spec.jpg",
-	]);
+	const [[earthTexture, earthBumpMap, earthSpecMap], setTextures] = useState<
+		[Texture, Texture, Texture]
+	>([null!, null!, null!]);
 	const earthSpec = new Color("grey");
+
+	useEffect(() => {
+		const loader = new TextureLoader();
+		const earth = loader.load("/materials/earth.jpg");
+		const bump = loader.load("/materials/earth-bump.jpg");
+		const spec = loader.load("/materials/earth-spec.jpg");
+		setTextures([earth, bump, spec]);
+	}, []);
 
 	return (
 		<>
