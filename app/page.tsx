@@ -33,7 +33,7 @@ export default function Page() {
 						Veja os dados
 					</Link>
 					<Link
-						href="/contato"
+						href="mailto:jpnm1@aluno.ifal.edu.br?subject=(FERCEN) Digite aqui o assunto"
 						className="rounded-sm px-6 py-1 bg-gray-500 text-white text-xl text-center"
 					>
 						Fale conosco

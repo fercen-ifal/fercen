@@ -46,7 +46,7 @@ export const Globe = memo(function Component() {
 				<GlobeAnimation mesh={meshRef} />
 				<perspectiveCamera />
 				<ambientLight intensity={1.1} />
-				<directionalLight position={[-2, 2, 2]} intensity={0.2} />
+				<directionalLight position={[-2, 2, 2]} intensity={0.1} />
 
 				<mesh ref={meshRef} position={[0, 0, 0]} rotation={[0, 0, 0]} scale={1.4}>
 					<sphereGeometry args={[1, 32, 32]} />
