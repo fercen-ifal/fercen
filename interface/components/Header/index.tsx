@@ -10,7 +10,6 @@ import logo from "public/logo-horizontal.webp";
 
 export const Header = memo(function Component() {
 	const pathname = usePathname();
-	// TODO: Fix useSession
 	const { session } = useSession();
 
 	return (

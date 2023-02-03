@@ -17,12 +17,14 @@ export interface UseSessionReturn {
 	error?: any;
 }
 
+const fetcher = (url: string) => fetch(url).then(data => data.json());
+
 export const useSession = (
 	redirect?: string | URL,
 	redirectIfFound?: boolean
 ): UseSessionReturn => {
 	const { push } = useRouter();
-	const { data, mutate, isLoading, error } = useSWR<SessionsApiData>("/api/sessions");
+	const { data, mutate, isLoading, error } = useSWR<SessionsApiData>("/api/sessions", fetcher);
 	const session = data?.session;
 
 	useEffect(() => {

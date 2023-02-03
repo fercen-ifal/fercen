@@ -12,10 +12,11 @@ import { SubModule } from "./SubModule";
 export default async function DashboardLayout({ children }: { children: React.ReactNode }) {
 	await getSession({ redirect: "/login" });
 
+	// TODO: Adjust side menu on smaller screens
 	return (
 		<>
 			<section className="flex h-full">
-				<aside className="flex flex-col w-72 p-4 gap-4 bg-gray-100">
+				<aside className="flex-col w-72 p-4 gap-4 bg-gray-100 hidden sm:flex">
 					<SubModule name="Sua conta" href="/painel/conta">
 						<MdAccountCircle className="text-xl" />
 					</SubModule>

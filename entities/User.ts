@@ -14,7 +14,6 @@ export interface UserProviderConnection {
  * Interface do usuário disponibilizada pelo banco de dados.
  */
 export interface User {
-	// TODO
 	id: string;
 	fullname: string | null;
 	username: string;

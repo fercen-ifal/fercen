@@ -189,8 +189,7 @@ const putHandler: RequestHandler<ApiRequest, NextApiResponse> = async (req, res)
 			variables: {
 				username: user.fullname?.split(" ")[0] || user.username,
 				changes: "Recuperação de senha",
-				// TODO: Update path according to actual page
-				url: new URL("/conta", getURL()).toString(),
+				url: new URL("/painel/conta", getURL()).toString(),
 			},
 		}
 	);

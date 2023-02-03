@@ -60,8 +60,6 @@ const postHandler: RequestHandler<ApiRequest, NextApiResponse> = async (req, res
 		});
 	}
 
-	// TODO: Create a service to abstract controller operations
-
 	let password = "";
 
 	await retry(
