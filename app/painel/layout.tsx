@@ -54,7 +54,7 @@ export default async function DashboardLayout({ children }: { children: React.Re
 						</SubModule>
 					</div>
 				</aside>
-				<section className="flex flex-col w-full bg-white p-16">{children}</section>
+				<section className="flex flex-col w-full bg-white p-8 sm:p-16">{children}</section>
 			</section>
 		</>
 	);
