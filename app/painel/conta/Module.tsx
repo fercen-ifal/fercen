@@ -7,6 +7,7 @@ export interface ModuleProps {
 		status: string;
 		action?: {
 			label: string;
+			onClick?: () => void;
 		};
 	}[];
 }
@@ -28,6 +29,7 @@ export const Module: FC<ModuleProps> = memo(function Component({ title, subModul
 							<button
 								type="button"
 								className="w-full font-light text-right text-primary-darker hover:underline"
+								onClick={subModule.action.onClick}
 							>
 								{subModule.action.label}
 							</button>
