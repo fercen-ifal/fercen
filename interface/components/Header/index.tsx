@@ -31,7 +31,7 @@ export const Header = memo(function Component() {
 					<Link
 						href={
 							session
-								? "/conta"
+								? "/painel/conta"
 								: ["/login", "/cadastrar"].includes(String(pathname))
 								? "/"
 								: "/login"

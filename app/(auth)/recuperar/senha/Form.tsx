@@ -120,9 +120,9 @@ export const Form: FC = () => {
 							/>
 						)}
 					</div>
-					<div className="flex justify-between w-full text-xs text-primary-dark">
+					<div className="flex justify-between w-full gap-3 text-xs text-primary-dark">
 						{!hasCode ? (
-							<button type="button" onClick={changeToHasCode}>
+							<button type="button" onClick={changeToHasCode} className="text-left">
 								Já possui um código de recuperação?
 							</button>
 						) : null}

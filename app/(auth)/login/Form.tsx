@@ -69,7 +69,7 @@ export const Form: FC = () => {
 							ref={passwordInputRef}
 						/>
 					</div>
-					<div className="flex justify-between w-full text-xs text-primary-dark">
+					<div className="flex justify-between w-full gap-3 text-xs text-primary-dark">
 						<Link href="/cadastrar">Criar um novo usuário</Link>
 						<Link href="/recuperar/senha">Esqueceu sua senha?</Link>
 					</div>
