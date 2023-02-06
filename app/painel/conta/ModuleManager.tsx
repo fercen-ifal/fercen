@@ -2,6 +2,7 @@
 
 import { Dialog } from "@headlessui/react";
 import type { UserSession } from "entities/Session";
+import { Button } from "interface/components/Button";
 import { TextField } from "interface/components/TextField";
 import { fetcher } from "interface/utils/fetcher";
 import { getURL } from "models/webserver";
@@ -84,14 +85,9 @@ const FullnameEditDialog: FC<DialogProps> = ({ close }) => {
 					ref={passwordInputRef}
 				/>
 				{alertText ? <span className="text-sm text-alt-red">{alertText}</span> : null}
-				<button
-					type="submit"
-					className="flex justify-center items-center gap-3 bg-primary-dark text-white px-2 py-1.5 rounded-sm outline-primary-darker duration-200 hover:brightness-95 active:brightness-90 disabled:brightness-75 disabled:cursor-not-allowed"
-					disabled={isLoading}
-				>
-					{isLoading ? <ImSpinner2 className="text-lg animate-spin" /> : null}
+				<Button type="submit" className="bg-primary-dark" loading={isLoading}>
 					Salvar
-				</button>
+				</Button>
 			</form>
 		</>
 	);
@@ -262,7 +258,7 @@ export const ModuleManager: FC<ModuleManagerProps> = memo(function Component({ s
 			<Dialog
 				open={isDialogOpen}
 				onClose={toggleDialog}
-				className="flex justify-center items-center absolute inset-0 bg-black/10 backdrop-blur-sm"
+				className="flex justify-center items-center absolute inset-0 z-10 bg-black/10 backdrop-blur-sm"
 			>
 				<Dialog.Panel className="flex flex-col w-full max-w-lg gap-4 p-5 rounded bg-white">
 					{dialog === "fullname" ? (

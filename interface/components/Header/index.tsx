@@ -17,10 +17,15 @@ export const Header = memo(function Component() {
 			<header className="flex flex-col sm:flex-row justify-center sm:justify-between items-center px-2 sm:px-4 py-4 sm:py-2 bg-primary-main">
 				{pathname !== "/" ? (
 					<Link href="/">
-						<Image src={logo} alt="Logo da FERCEN" className="w-full max-w-xs" />
+						<Image
+							src={logo}
+							alt="Logo da FERCEN"
+							className="w-full max-w-xs"
+							priority
+						/>
 					</Link>
 				) : (
-					<Image src={logo} alt="Logo da FERCEN" className="w-full max-w-xs" />
+					<Image src={logo} alt="Logo da FERCEN" className="w-full max-w-xs" priority />
 				)}
 
 				{pathname?.startsWith("/painel") && session ? (

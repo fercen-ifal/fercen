@@ -28,8 +28,8 @@ export default async function Head() {
 			<meta property="twitter:image" content={image} key="twitter:image" />
 
 			<meta name="viewport" content="width=device-width, initial-scale=1" />
-			{/* <link rel="icon" href="/favicon.png" type="image/png" />
-			<link rel="manifest" href="/manifest.json" crossOrigin="use-credentials" /> */}
+			<link rel="icon" href="/favicon.png" type="image/png" />
+			{/* <link rel="manifest" href="/manifest.json" crossOrigin="use-credentials" /> */}
 			<meta name="mobile-web-app-capable" content="yes" />
 			<meta name="apple-mobile-web-app-capable" content="yes" />
 			<meta httpEquiv="Content-Security-Policy" content="upgrade-insecure-requests" />

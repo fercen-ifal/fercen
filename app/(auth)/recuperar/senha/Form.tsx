@@ -1,12 +1,12 @@
 "use client";
 
+import { Button } from "interface/components/Button";
 import { FormContainer } from "interface/components/FormContainer";
 import { TextField } from "interface/components/TextField";
 import { fetcher } from "interface/utils/fetcher";
 import { getURL } from "models/webserver";
 import Link from "next/link";
 import React, { useCallback, useRef, useState, type FC, type FormEvent } from "react";
-import { ImSpinner2 } from "react-icons/im";
 
 export const Form: FC = () => {
 	const usernameInputRef = useRef<HTMLInputElement>(null);
@@ -135,13 +135,9 @@ export const Form: FC = () => {
 						<span className="text-sm text-alt-red">{alertText}</span>
 					) : null}
 
-					<button
-						type="submit"
-						className="flex justify-center items-center gap-3 bg-primary-dark text-white px-2 py-1.5 rounded-sm outline-primary-darker duration-200 hover:brightness-95 active:brightness-90 disabled:brightness-75 disabled:cursor-not-allowed"
-					>
-						{isLoading ? <ImSpinner2 className="text-lg animate-spin" /> : null}
+					<Button type="submit" className="bg-primary-dark" loading={isLoading}>
 						{hasCode ? "Alterar senha" : "Pedir código de recuperação"}
-					</button>
+					</Button>
 				</form>
 				<div className="flex flex-col mt-4">
 					<span className="text-sm">

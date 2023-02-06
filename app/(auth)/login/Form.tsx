@@ -7,8 +7,9 @@ import { getURL } from "models/webserver";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import React, { useCallback, useRef, useState, type FC, type FormEvent } from "react";
-import { ImGoogle, ImSpinner2 } from "react-icons/im";
+import { ImGoogle } from "react-icons/im";
 import { BsMicrosoft } from "react-icons/bs";
+import { Button } from "interface/components/Button";
 
 export const Form: FC = () => {
 	const router = useRouter();
@@ -74,14 +75,9 @@ export const Form: FC = () => {
 						<Link href="/recuperar/senha">Esqueceu sua senha?</Link>
 					</div>
 					{alertText ? <span className="text-sm text-alt-red">{alertText}</span> : null}
-					<button
-						type="submit"
-						className="flex justify-center items-center gap-3 bg-primary-dark text-white px-2 py-1.5 rounded-sm outline-primary-darker duration-200 hover:brightness-95 active:brightness-90 disabled:brightness-75 disabled:cursor-not-allowed"
-						disabled={isLoading}
-					>
-						{isLoading ? <ImSpinner2 className="text-lg animate-spin" /> : null}
+					<Button type="submit" className="bg-primary-dark" loading={isLoading}>
 						Entrar
-					</button>
+					</Button>
 				</form>
 				<div className="flex flex-col gap-4 mt-4">
 					<span className="text-sm">
