@@ -25,6 +25,7 @@ export const Form: FC = () => {
 		async (event: FormEvent<HTMLFormElement>) => {
 			event.preventDefault();
 			setIsLoading(true);
+			setAlertText("");
 
 			if (
 				!usernameInputRef.current?.value ||

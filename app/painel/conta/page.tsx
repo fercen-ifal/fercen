@@ -10,8 +10,10 @@ export default async function Page() {
 		<>
 			<main className="flex flex-col w-full gap-7 bg-white">
 				<div className="flex items-center gap-3">
-					<MdAccountCircle className="text-4xl" />
-					<h1 className="text-3xl font-semibold">Sua conta</h1>
+					<div>
+						<MdAccountCircle className="text-4xl" />
+					</div>
+					<h1 className="text-2xl lg:text-3xl font-semibold">Sua conta</h1>
 				</div>
 				<ModuleManager session={session} />
 			</main>
