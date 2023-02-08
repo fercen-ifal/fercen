@@ -12,5 +12,5 @@
 
 html,
 body {
-	@apply flex flex-col h-full bg-primary-main;
+	@apply flex flex-col min-h-full h-fit bg-primary-main;
 }
