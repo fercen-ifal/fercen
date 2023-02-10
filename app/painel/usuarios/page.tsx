@@ -7,10 +7,7 @@ import type { User } from "entities/User";
 import { cookies } from "next/headers";
 import { UserCard } from "./UserCard";
 
-const delay = () => new Promise<void>(resolve => setTimeout(() => resolve(), 10000));
-
 async function getUsers() {
-	await delay();
 	const NEXT_CACHE_LIFETIME = 10;
 
 	const cookie = cookies().get("fercen-session");
