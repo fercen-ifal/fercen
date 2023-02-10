@@ -15,7 +15,7 @@ export default async function DashboardLayout({ children }: { children: React.Re
 	// TODO: Adjust side menu on smaller screens
 	return (
 		<>
-			<section className="flex h-full">
+			<section className="flex max-w-[100vw] h-full">
 				<aside className="flex-col w-72 p-4 gap-4 bg-gray-100 hidden sm:flex">
 					<SubModule name="Sua conta" href="/painel/conta">
 						<MdAccountCircle className="text-xl" />
@@ -54,7 +54,9 @@ export default async function DashboardLayout({ children }: { children: React.Re
 						</SubModule>
 					</div>
 				</aside>
-				<section className="flex flex-col w-full bg-white p-8 sm:p-16">{children}</section>
+				<section className="flex flex-col w-full max-h-full overflow-y-auto bg-white p-8 sm:p-16">
+					{children}
+				</section>
 			</section>
 		</>
 	);

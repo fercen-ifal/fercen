@@ -1,8 +1,16 @@
+import { getSession } from "interface/hooks/getSession";
 import React from "react";
 import { MdPersonAddAlt1, MdWarning } from "react-icons/md";
 import { Form } from "./Form";
 
 export default async function Page() {
+	const { session } = await getSession({ redirect: "/login" });
+	if (!session?.permissions.includes("create:invite")) {
+		throw new Error(
+			"Você não tem permissão para executar esta ação. Verifique suas permissões e tente novamente."
+		);
+	}
+
 	return (
 		<>
 			<main className="flex flex-col w-full gap-7 bg-white">
