@@ -258,7 +258,7 @@ export const ModuleManager: FC<ModuleManagerProps> = memo(function Component({ s
 			<Dialog
 				open={isDialogOpen}
 				onClose={toggleDialog}
-				className="flex justify-center items-center absolute inset-0 z-10 bg-black/10 backdrop-blur-sm"
+				className="flex justify-center items-center absolute h-[calc(100vh+11%)] px-4 inset-0 z-10 bg-black/10 backdrop-blur-sm"
 			>
 				<Dialog.Panel className="flex flex-col w-full max-w-lg gap-4 p-5 rounded bg-white">
 					{dialog === "fullname" ? (

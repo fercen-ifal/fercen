@@ -29,6 +29,7 @@ async function getUsers() {
 export default async function Page() {
 	const users = await getUsers();
 
+	// TODO: Review responsiveness
 	return (
 		<>
 			<main className="flex flex-col w-full gap-7 bg-white">
