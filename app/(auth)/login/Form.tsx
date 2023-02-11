@@ -10,14 +10,39 @@ import React, { useCallback, useRef, useState, type FC, type FormEvent } from "r
 import { ImGoogle } from "react-icons/im";
 import { BsMicrosoft } from "react-icons/bs";
 import { Button } from "interface/components/Button";
+import { GoogleOAuthProvider, useGoogleLogin } from "@react-oauth/google";
 
-export const Form: FC = () => {
+const FormWithoutProvider: FC = () => {
 	const router = useRouter();
 	const usernameInputRef = useRef<HTMLInputElement>(null);
 	const passwordInputRef = useRef<HTMLInputElement>(null);
 
 	const [alertText, setAlertText] = useState("");
 	const [isLoading, setIsLoading] = useState(false);
+
+	const loginWithGoogle = useGoogleLogin({
+		onSuccess: async ({ access_token }) => {
+			setIsLoading(true);
+			setAlertText("");
+
+			const { error } = await fetcher(new URL("/api/sessions/google", getURL()), {
+				code: access_token,
+			});
+
+			if (error) {
+				setAlertText(
+					`${error.message || "Não foi possível fazer login com Google."} ${
+						error.action || "Tente novamente."
+					}`
+				);
+				setIsLoading(false);
+				return;
+			}
+
+			setIsLoading(false);
+			router.push("/painel/conta");
+		},
+	});
 
 	const onFormSubmit = useCallback(
 		async (event: FormEvent<HTMLFormElement>) => {
@@ -86,23 +111,32 @@ export const Form: FC = () => {
 						agora para fazer login de forma mais rápida.
 					</span>
 					<div className="flex flex-col sm:flex-row justify-between gap-3">
-						<button
+						<Button
 							type="button"
-							className="flex justify-center items-center gap-3 w-full px-2 py-1.5 bg-alt-red text-white rounded-sm duration-200 hover:brightness-95 active:brightness-90"
+							className="w-full bg-alt-red"
+							onClick={() => loginWithGoogle()}
+							loading={isLoading}
 						>
 							<ImGoogle />
 							Entre com Google
-						</button>
-						<button
-							type="button"
-							className="flex justify-center items-center gap-3 w-full px-2 py-1.5 bg-alt-blue text-white rounded-sm duration-200 hover:brightness-95 active:brightness-90"
-						>
+						</Button>
+						<Button type="button" className="w-full bg-alt-blue" loading={isLoading}>
 							<BsMicrosoft />
 							Entre com Microsoft
-						</button>
+						</Button>
 					</div>
 				</div>
 			</FormContainer>
+		</>
+	);
+};
+
+export const Form: FC = () => {
+	return (
+		<>
+			<GoogleOAuthProvider clientId={String(process.env.NEXT_PUBLIC_GOOGLE_CLIENT_ID)}>
+				<FormWithoutProvider />
+			</GoogleOAuthProvider>
 		</>
 	);
 };

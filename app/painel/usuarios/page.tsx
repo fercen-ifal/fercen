@@ -30,6 +30,7 @@ export default async function Page() {
 	const users = await getUsers();
 
 	// TODO: Review responsiveness
+	// TODO: Create search system
 	return (
 		<>
 			<main className="flex flex-col w-full gap-7 bg-white">

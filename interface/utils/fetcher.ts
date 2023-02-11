@@ -17,21 +17,25 @@ export const fetcher = async <ReturnType = Object, BodyType = Object>(
 	body?: BodyType,
 	init?: Omit<RequestInit, "body">
 ): Promise<FetcherReturn<ReturnType>> => {
-	const res = await fetch(url, {
-		...init,
-		method: init?.method ? init.method : body ? "POST" : "GET",
-		headers: {
-			...init?.headers,
-			Accept: "application/json",
-			"Content-Type": "application/json",
-		},
-		body: body ? JSON.stringify(body) : null,
-	});
-	const data: ReturnType | BaseErrorParams = await res.json();
+	try {
+		const res = await fetch(url, {
+			...init,
+			method: init?.method ? init.method : body ? "POST" : "GET",
+			headers: {
+				...init?.headers,
+				Accept: "application/json",
+				"Content-Type": "application/json",
+			},
+			body: body ? JSON.stringify(body) : null,
+		});
+		const data: ReturnType | BaseErrorParams = await res.json();
 
-	if (!res.ok) {
-		return { error: data as BaseErrorParams };
+		if (!res.ok) {
+			return { error: data as BaseErrorParams };
+		}
+
+		return { data: data as ReturnType };
+	} catch (err) {
+		return { error: {} };
 	}
-
-	return { data: data as ReturnType };
 };

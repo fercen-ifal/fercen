@@ -39,6 +39,15 @@ export interface IUsersRepository {
 	readAll(): Promise<User[]>;
 
 	/**
+	 * Busca um usuário no banco de dados por seu email vinculado pelo Google.
+	 *
+	 * @param {string} googleEmail Email Google do usuário.
+	 *
+	 * @returns {(Promise<User | null>)} Promessa de usuário ou nulo se não encontrar.
+	 */
+	readByGoogleEmail(googleEmail: string): Promise<User | null>;
+
+	/**
 	 * Atualiza um usuário no banco de dados.
 	 *
 	 * @param {string} userIdOrEmail ``Id`` ou ``email`` do usuário.

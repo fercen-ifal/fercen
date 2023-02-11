@@ -120,6 +120,27 @@ export class FirebaseUsersRepository implements IUsersRepository {
 		}, this.retryOpts);
 	}
 
+	async readByGoogleEmail(googleEmail: string): Promise<User | null> {
+		return await retry(async () => {
+			try {
+				const user = await this.col
+					.where("googleProvider.email", "==", googleEmail)
+					.limit(1)
+					.get();
+				if (user.empty || !user.docs[0].exists || !user.docs[0].data()) return null;
+				const { password, ...data } = user.docs[0].data() as DatabaseUser;
+
+				return data;
+			} catch (err) {
+				throw new InternalServerError({
+					message: "Não foi possível ler o usuário.",
+					errorLocationCode: "REPOS:USERS:READBYGOOGLEEMAIL_FAILURE",
+					stack: new Error().stack,
+				});
+			}
+		}, this.retryOpts);
+	}
+
 	async update(
 		userIdOrEmail: string,
 		newData: UpdatableUser,
