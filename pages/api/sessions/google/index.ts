@@ -38,7 +38,7 @@ const postHandler: RequestHandler<ApiRequest, NextApiResponse> = async (req, res
 	if (!user) {
 		throw new ValidationError({
 			message: "Nenhuma conta com seu email Google foi encontrada.",
-			action: "Verifique seus dados e tente novamente.",
+			action: "Verifique se você vinculou sua conta Google com sua conta FERCEN.",
 			errorLocationCode: "API:SESSIONS:GOOGLE:POST:NOT_FOUND",
 		});
 	}
