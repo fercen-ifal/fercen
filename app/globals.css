@@ -10,7 +10,10 @@
 	-webkit-text-size-adjust: 100%;
 }
 
-html,
+html {
+	@apply h-full;
+}
+
 body {
-	@apply flex flex-col h-full max-h-screen bg-primary-main;
+	@apply flex flex-col min-h-full box-border bg-primary-main;
 }

@@ -14,7 +14,7 @@ export const Header = memo(function Component() {
 
 	return (
 		<>
-			<header className="flex flex-col sm:flex-row justify-center sm:justify-between items-center px-2 sm:px-4 py-4 sm:py-2 bg-primary-main">
+			<header className="flex flex-col fixed w-full sm:flex-row justify-between items-center h-[150px] sm:h-[90px] pl-5 sm:pl-0 pr-5 pt-2 pb-2 bg-primary-main z-10">
 				{pathname !== "/" ? (
 					<Link href="/">
 						<Image
@@ -41,7 +41,7 @@ export const Header = memo(function Component() {
 								? "/"
 								: "/login"
 						}
-						className="h-fit border border-primary-dark rounded px-2 py-1.5 cursor-pointer duration-200 hover:bg-slate-300/10 hover:brightness-95 print:hidden"
+						className="h-fit text-center border border-primary-dark rounded px-2 py-1.5 cursor-pointer duration-200 hover:bg-slate-300/10 hover:brightness-95 print:hidden"
 					>
 						{session
 							? "Ir ao painel"
