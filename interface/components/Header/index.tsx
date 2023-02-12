@@ -29,7 +29,7 @@ export const Header = memo(function Component() {
 				)}
 
 				{pathname?.startsWith("/painel") && session ? (
-					<span>
+					<span className="print:hidden">
 						Logado como: <strong>{session.username}</strong>
 					</span>
 				) : (
@@ -50,6 +50,12 @@ export const Header = memo(function Component() {
 							: "Acesso restrito"}
 					</Link>
 				)}
+
+				<span className="hidden print:inline text-xs">
+					Relatório gerado em {new Date().toLocaleDateString()}{" "}
+					{session ? `por ${session.fullname || session.username} ` : ""}
+					na plataforma FERCEN.
+				</span>
 			</header>
 		</>
 	);

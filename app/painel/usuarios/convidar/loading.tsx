@@ -2,6 +2,8 @@ import React from "react";
 import { ImSpinner2 } from "react-icons/im";
 import { MdPersonAddAlt1 } from "react-icons/md";
 
+// TODO: Review why this file is not showing when page's loading
+
 export default function Loading() {
 	return (
 		<>

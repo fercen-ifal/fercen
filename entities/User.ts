@@ -44,6 +44,6 @@ export interface UpdatableUser {
 	email?: string;
 	password?: string;
 	permissions?: Permission[];
-	googleProvider?: UserProviderConnection;
-	microsoftProvider?: UserProviderConnection;
+	googleProvider?: UserProviderConnection | null;
+	microsoftProvider?: UserProviderConnection | null;
 }

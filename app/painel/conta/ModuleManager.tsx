@@ -1,6 +1,7 @@
 "use client";
 
 import { Dialog } from "@headlessui/react";
+import { GoogleOAuthProvider, useGoogleLogin } from "@react-oauth/google";
 import type { UserSession } from "entities/Session";
 import { Button } from "interface/components/Button";
 import { TextField } from "interface/components/TextField";
@@ -249,9 +250,51 @@ const PasswordEditDialog: FC<DialogProps> = ({ close }) => {
 	);
 };
 
-export const ModuleManager: FC<ModuleManagerProps> = memo(function Component({ session }) {
+// TODO: Optimize this file
+
+const ModuleManagerWithoutProvider: FC<ModuleManagerProps> = memo(function Component({ session }) {
 	const [isDialogOpen, toggleDialog] = useBoolean(false);
 	const [dialog, setDialog] = useState<string | null>(null);
+
+	const syncGoogleAccount = useGoogleLogin({
+		onSuccess: async ({ access_token }) => {
+			const { error } = await fetcher(
+				new URL("/api/sessions/google", getURL()),
+				{
+					code: access_token,
+				},
+				{ method: "PUT" }
+			);
+
+			if (error) {
+				console.log(
+					`${error.message || "Não foi possível sincronizar sua conta Google."} ${
+						error.action || "Tente novamente."
+					}`
+				);
+				return;
+			}
+
+			console.log("Conta Google sincronizada.");
+		},
+	});
+
+	const desyncGoogleAccount = async () => {
+		const { error } = await fetcher(new URL("/api/sessions/google", getURL()), undefined, {
+			method: "DELETE",
+		});
+
+		if (error) {
+			console.log(
+				`${error.message || "Não foi possível remover vínculo Google."} ${
+					error.action || "Tente novamente."
+				}`
+			);
+			return;
+		}
+
+		console.log("Conta Google desvinculada com sucesso.");
+	};
 
 	return (
 		<>
@@ -310,6 +353,9 @@ export const ModuleManager: FC<ModuleManagerProps> = memo(function Component({ s
 						status: !!session?.googleProvider ? "Vinculada" : "Não vinculada",
 						action: {
 							label: !!session?.googleProvider ? "Remover vínculo" : "Vincular",
+							onClick: !!session?.googleProvider
+								? desyncGoogleAccount
+								: syncGoogleAccount,
 						},
 					},
 					{
@@ -335,3 +381,13 @@ export const ModuleManager: FC<ModuleManagerProps> = memo(function Component({ s
 		</>
 	);
 });
+
+export const ModuleManager: FC<ModuleManagerProps> = ({ session }) => {
+	return (
+		<>
+			<GoogleOAuthProvider clientId={String(process.env.NEXT_PUBLIC_GOOGLE_CLIENT_ID)}>
+				<ModuleManagerWithoutProvider session={session} />
+			</GoogleOAuthProvider>
+		</>
+	);
+};
