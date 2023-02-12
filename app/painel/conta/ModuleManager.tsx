@@ -94,8 +94,8 @@ const FullnameEditDialog: FC<DialogProps> = ({ close }) => {
 	);
 };
 
-const UsernameEditDialog: FC<DialogProps> = ({ close }) => {
-	const usernameInputRef = useRef<HTMLInputElement>(null);
+const EmailEditDialog: FC<DialogProps> = ({ close }) => {
+	const emailInputRef = useRef<HTMLInputElement>(null);
 	const passwordInputRef = useRef<HTMLInputElement>(null);
 	const [alertText, setAlertText] = useState("");
 	const [isLoading, toggleLoading] = useBoolean(false);
@@ -106,7 +106,7 @@ const UsernameEditDialog: FC<DialogProps> = ({ close }) => {
 			event.preventDefault();
 			toggleLoading();
 
-			if (!usernameInputRef.current?.value || !passwordInputRef.current?.value) {
+			if (!emailInputRef.current?.value || !passwordInputRef.current?.value) {
 				setAlertText("Preencha os campos.");
 				toggleLoading();
 				return;
@@ -115,7 +115,7 @@ const UsernameEditDialog: FC<DialogProps> = ({ close }) => {
 			const { error } = await fetcher(
 				new URL("/api/user", getURL()),
 				{
-					username: usernameInputRef.current.value,
+					email: emailInputRef.current.value,
 					password: passwordInputRef.current.value,
 				},
 				{ method: "PUT" }
@@ -123,7 +123,7 @@ const UsernameEditDialog: FC<DialogProps> = ({ close }) => {
 
 			if (error) {
 				setAlertText(
-					`${error.message || "Não foi possível editar seu usuário."} ${
+					`${error.message || "Não foi possível editar seu email."} ${
 						error.action || "Tente novamente."
 					}`
 				);
@@ -141,15 +141,11 @@ const UsernameEditDialog: FC<DialogProps> = ({ close }) => {
 	return (
 		<>
 			<div className="flex justify-between px-1">
-				<Dialog.Title className="text-xl font-medium">Editar usuário</Dialog.Title>
+				<Dialog.Title className="text-xl font-medium">Editar email</Dialog.Title>
 				<MdClose role="button" className="text-3xl p-1" onClick={close} />
 			</div>
 			<form onSubmit={onSubmit} className="flex flex-col gap-3">
-				<TextField
-					name="username"
-					placeholder="Seu nome de usuário:"
-					ref={usernameInputRef}
-				/>
+				<TextField name="email" type="email" placeholder="Seu email:" ref={emailInputRef} />
 				<TextField
 					name="password"
 					spellCheck={false}
@@ -306,8 +302,8 @@ const ModuleManagerWithoutProvider: FC<ModuleManagerProps> = memo(function Compo
 				<Dialog.Panel className="flex flex-col w-full max-w-lg gap-4 p-5 rounded bg-white">
 					{dialog === "fullname" ? (
 						<FullnameEditDialog close={toggleDialog} />
-					) : dialog === "username" ? (
-						<UsernameEditDialog close={toggleDialog} />
+					) : dialog === "email" ? (
+						<EmailEditDialog close={toggleDialog} />
 					) : dialog === "password" ? (
 						<PasswordEditDialog close={toggleDialog} />
 					) : null}
@@ -331,17 +327,17 @@ const ModuleManagerWithoutProvider: FC<ModuleManagerProps> = memo(function Compo
 					{
 						name: "Nome de usuário",
 						status: session?.username || "Não informado",
-						action: {
-							label: "Editar usuário",
-							onClick: () => {
-								toggleDialog();
-								setDialog("username");
-							},
-						},
 					},
 					{
 						name: "Email",
 						status: session?.email || "Não informado",
+						action: {
+							label: "Editar email",
+							onClick: () => {
+								toggleDialog();
+								setDialog("email");
+							},
+						},
 					},
 				]}
 			/>
