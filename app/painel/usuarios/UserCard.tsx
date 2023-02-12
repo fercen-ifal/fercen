@@ -22,7 +22,7 @@ export const UserCard: FC<User> = memo(function Component({
 						</h3>
 						<h4 className="font-light truncate">Email: {email}</h4>
 					</div>
-					<div className="max-w-[90%]">
+					<div className="max-w-[90%] print:max-w-full">
 						<h4 className="pb-1">Permissões:</h4>
 						<ul className="flex flex-row gap-1 w-full overflow-x-auto">
 							{permissions.map(permission => (
@@ -36,7 +36,7 @@ export const UserCard: FC<User> = memo(function Component({
 						</ul>
 					</div>
 				</div>
-				<Button className="bg-gray-500 text-white text-sm">
+				<Button className="bg-gray-500 text-white text-sm print:hidden">
 					<MdEdit className="text-lg" />
 					Editar
 				</Button>

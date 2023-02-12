@@ -1,11 +1,11 @@
-import { TextField } from "interface/components/TextField";
 import React from "react";
-import { MdManageAccounts, MdSearch, MdWarning } from "react-icons/md";
+import { MdManageAccounts, MdWarning } from "react-icons/md";
 import { fetcher } from "interface/utils/fetcher";
 import { getURL } from "models/webserver";
 import type { User } from "entities/User";
 import { cookies } from "next/headers";
 import { UserCard } from "./UserCard";
+import { Search } from "./Search";
 
 async function getUsers() {
 	const NEXT_CACHE_LIFETIME = 10;
@@ -29,8 +29,6 @@ async function getUsers() {
 export default async function Page() {
 	const users = await getUsers();
 
-	// TODO: Review responsiveness
-	// TODO: Create search system
 	return (
 		<>
 			<main className="flex flex-col w-full gap-7 bg-white">
@@ -40,34 +38,21 @@ export default async function Page() {
 					</div>
 					<h1 className="text-2xl lg:text-3xl font-semibold">Gerenciar usuários</h1>
 				</div>
-				<div className="flex flex-row items-center gap-2 w-full">
-					<div className="w-full">
-						<TextField
-							name="search"
-							type="search"
-							placeholder="Procure usuários (nome, usuário ou email):"
-						/>
+				<Search data={users} />
+				{!users || users.length <= 0 ? (
+					<div className="flex justify-center items-center gap-4 p-2 bg-gray-100 rounded">
+						<MdWarning />
+						<p className="text-center">O servidor não retornou nenhum usuário.</p>
 					</div>
-					<div>
-						<MdSearch className="text-xl" />
-					</div>
-				</div>
-				<section className="h-full max-h-full overflow-y-auto">
-					{!users || users.length <= 0 ? (
-						<div className="flex justify-center items-center gap-4 p-2 bg-gray-100 rounded">
-							<MdWarning />
-							<p className="text-center">O servidor não retornou nenhum usuário.</p>
-						</div>
-					) : (
-						<ul className="flex flex-col gap-4 max-w-full">
-							{users
-								.sort((a, b) => b.permissions.length - a.permissions.length)
-								.map(user => (
-									<UserCard key={user.id} {...user} />
-								))}
-						</ul>
-					)}
-				</section>
+				) : (
+					<ul className="flex flex-col gap-4">
+						{users
+							.sort((a, b) => b.permissions.length - a.permissions.length)
+							.map(user => (
+								<UserCard key={user.id} {...user} />
+							))}
+					</ul>
+				)}
 			</main>
 		</>
 	);
