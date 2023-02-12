@@ -7,10 +7,22 @@ import { fetcher } from "interface/utils/fetcher";
 import { getURL } from "models/webserver";
 import React, { memo, type FC, useState } from "react";
 import { useBoolean } from "react-use";
-import { EmailDialog } from "./dialogs/EmailDialog";
-import { FullnameDialog } from "./dialogs/FullnameDialog";
-import { PasswordDialog } from "./dialogs/PasswordDialog";
 import { Module } from "./Module";
+import dynamic from "next/dynamic";
+
+const dynamicLoading = () => <span className="w-full text-center">Carregando...</span>;
+
+const EmailDialog = dynamic(() => import("./dialogs/EmailDialog").then(mod => mod.EmailDialog), {
+	loading: dynamicLoading,
+});
+const FullnameDialog = dynamic(
+	() => import("./dialogs/FullnameDialog").then(mod => mod.FullnameDialog),
+	{ loading: dynamicLoading }
+);
+const PasswordDialog = dynamic(
+	() => import("./dialogs/PasswordDialog").then(mod => mod.PasswordDialog),
+	{ loading: dynamicLoading }
+);
 
 export interface ModuleManagerProps {
 	session?: UserSession;
