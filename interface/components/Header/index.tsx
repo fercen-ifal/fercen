@@ -14,7 +14,7 @@ export const Header = memo(function Component() {
 
 	return (
 		<>
-			<header className="flex flex-col fixed w-full sm:flex-row justify-between items-center h-[150px] sm:h-[90px] pl-5 sm:pl-0 pr-5 pt-2 pb-2 bg-primary-main z-10">
+			<header className="flex flex-col fixed print:static w-full sm:flex-row justify-between items-center h-[150px] sm:h-[90px] pl-5 sm:pl-0 pr-5 pt-2 pb-2 bg-primary-main z-10">
 				{pathname !== "/" ? (
 					<Link href="/">
 						<Image
