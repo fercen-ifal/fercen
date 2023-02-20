@@ -112,7 +112,7 @@ const totalPricePieCharts = years.map(year => {
 export default function Page() {
 	return (
 		<>
-			<main className="flex flex-wrap justify-center items-center gap-10 min-h-screen pt-[calc(150px+4rem)] sm:pt-[calc(90px+4rem)] pb-16 bg-white">
+			<main className="flex flex-wrap justify-center items-center gap-10 min-h-screen pt-[calc(150px+4rem)] sm:pt-[calc(90px+4rem)] print:pt-10 pb-16 bg-white">
 				{years.map((year, yearIndex) => (
 					<section key={year} className="flex flex-col justify-center flex-wrap gap-5">
 						<h2 className="text-xl font-semibold">Relatórios do ano {year}</h2>

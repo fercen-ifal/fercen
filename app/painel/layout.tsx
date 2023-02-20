@@ -7,16 +7,20 @@ import {
 	MdAccountBalance,
 	MdDataSaverOff,
 } from "react-icons/md";
+import { MobileMenu } from "./MobileMenu";
 import { SubModule } from "./SubModule";
 
 export default async function DashboardLayout({ children }: { children: React.ReactNode }) {
 	await getSession({ redirect: "/login" });
 
-	// TODO: Adjust side menu on smaller screens
 	return (
 		<>
+			<MobileMenu />
 			<section className="flex min-h-screen h-full pt-[150px] sm:pt-[90px]">
-				<aside className="hidden sm:flex sm:fixed flex-col h-full w-72 p-4 gap-4 bg-gray-100">
+				<aside
+					id="menu"
+					className="scale-0 sm:scale-100 flex fixed flex-col h-full sm:w-72 p-4 gap-4 z-[1] bg-gray-100 shadow sm:shadow-none transition-transform origin-top-left duration-100"
+				>
 					<SubModule name="Sua conta" href="/painel/conta">
 						<MdAccountCircle className="text-xl" />
 					</SubModule>
@@ -54,7 +58,10 @@ export default async function DashboardLayout({ children }: { children: React.Re
 						</SubModule>
 					</div>
 				</aside>
-				<section className="flex flex-col w-full max-h-full overflow-y-auto bg-white p-8 sm:p-16 sm:pl-[calc(18rem+4rem)]">
+				<section
+					id="content"
+					className="flex flex-col w-full max-h-full overflow-y-auto bg-white p-8 sm:p-16 sm:pl-[calc(18rem+4rem)]"
+				>
 					{children}
 				</section>
 			</section>
