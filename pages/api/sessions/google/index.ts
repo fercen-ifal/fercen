@@ -89,6 +89,15 @@ const putHandler: RequestHandler<ApiRequest, NextApiResponse> = async (req, res)
 		});
 	}
 
+	const emailAlreadyConnected = await usersRepository.readByGoogleEmail(payload.data.email);
+	if (emailAlreadyConnected) {
+		throw new ValidationError({
+			message: "Esta conta Google já está conectada em outra conta FERCEN.",
+			action: "Verifique se você vinculou sua conta Google com outra conta FERCEN.",
+			errorLocationCode: "API:SESSIONS:GOOGLE:PUT:GOOGLE_EMAIL_ALREADY_CONNECTED",
+		});
+	}
+
 	await usersRepository.update(user.id, {
 		googleProvider: {
 			uid: payload.data.id || "",
