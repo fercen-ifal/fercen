@@ -1,15 +1,24 @@
 "use client";
 
+import { Popover } from "@headlessui/react";
+
 import { useSession } from "interface/hooks/useSession";
+import { getURL } from "models/webserver";
 import Image from "next/image";
 import Link from "next/link";
-import { usePathname } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 import logo from "public/logo-horizontal.webp";
-import React, { memo } from "react";
+import React, { memo, useCallback } from "react";
 
 export const Header = memo(function Component() {
 	const pathname = usePathname();
+	const router = useRouter();
 	const { session } = useSession();
+
+	const logoff = useCallback(() => {
+		fetch(new URL("/api/sessions", getURL()), { method: "DELETE" });
+		router.push("/login");
+	}, [router]);
 
 	return (
 		<>
@@ -28,9 +37,28 @@ export const Header = memo(function Component() {
 				)}
 
 				{pathname?.startsWith("/painel") && session ? (
-					<span className="print:hidden">
-						Logado como: <strong>{session.username}</strong>
-					</span>
+					<Popover className="relative">
+						{({ open }) => (
+							<>
+								<Popover.Button
+									className={`print:hidden outline-none ${
+										open ? "underline" : "hover:underline"
+									}`}
+								>
+									Logado como: <strong>{session.username}</strong>
+								</Popover.Button>
+
+								<Popover.Panel className="flex flex-col absolute w-full mt-2 p-2 gap-2 bg-white border border-black/10 rounded shadow-sm z-[2]">
+									<button
+										onClick={logoff}
+										className="bg-red-400 text-white p-1 rounded-sm text-sm duration-200 hover:brightness-95"
+									>
+										Deseja fazer logoff?
+									</button>
+								</Popover.Panel>
+							</>
+						)}
+					</Popover>
 				) : (
 					<Link
 						href={

@@ -13,6 +13,7 @@ export default async function Head() {
 			<meta name="title" content={title} key="title" />
 			<meta name="description" content={description} key="description" />
 			<meta name="robots" content="index follow" key="robots" />
+			<meta name="viewport" content="width=device-width, initial-scale=1" />
 
 			<meta property="og:site_name" content="Fercen" />
 			<meta property="og:type" content="website" key="og:type" />
