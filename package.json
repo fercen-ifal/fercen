@@ -2,7 +2,7 @@
 	"name": "fercen",
 	"description": "Ferramenta de Controle Energético do IFAL Campus Arapiraca.",
 	"author": "FERCEN <jpnm1@aluno.ifal.edu.br>",
-	"version": "0.27.1",
+	"version": "0.28.0",
 	"license": "GPL-3.0",
 	"scripts": {
 		"build": "next build",
@@ -36,6 +36,7 @@
 		"react-chartjs-2": "5.2.0",
 		"react-dom": "18.2.0",
 		"react-icons": "4.7.1",
+		"react-toastify": "^9.1.1",
 		"react-use": "17.4.0",
 		"sharp": "0.31.3",
 		"swr": "2.0.0",

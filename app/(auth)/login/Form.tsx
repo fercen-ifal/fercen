@@ -12,6 +12,7 @@ import { useRouter } from "next/navigation";
 import React, { useCallback, useRef, useState, type FC, type FormEvent } from "react";
 import { BsMicrosoft } from "react-icons/bs";
 import { ImGoogle } from "react-icons/im";
+import { toast } from "react-toastify";
 
 const FormWithoutProvider: FC = () => {
 	const router = useRouter();
@@ -42,6 +43,14 @@ const FormWithoutProvider: FC = () => {
 
 			setIsLoading(false);
 			router.push("/painel/conta");
+		},
+		onError: error => {
+			console.error(error);
+			toast.error("Houve um erro com seu login Google. Tente novamente.");
+		},
+		onNonOAuthError: error => {
+			console.error(error);
+			toast.error("Não foi possível fazer login com Google. Tente novamente.");
 		},
 	});
 

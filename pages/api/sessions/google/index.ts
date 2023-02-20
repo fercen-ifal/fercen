@@ -19,7 +19,6 @@ const postHandler: RequestHandler<ApiRequest, NextApiResponse> = async (req, res
 		code: "required",
 	});
 
-	// TODO: Extract to GoogleOAuthProvider
 	const googleOAuthProvider = new OAuth2Client(String(process.env.NEXT_PUBLIC_GOOGLE_CLIENT_ID));
 	googleOAuthProvider.setCredentials({ access_token: code });
 
@@ -74,7 +73,6 @@ const putHandler: RequestHandler<ApiRequest, NextApiResponse> = async (req, res)
 		});
 	}
 
-	// TODO: Extract to GoogleOAuthProvider
 	const googleOAuthProvider = new OAuth2Client(String(process.env.NEXT_PUBLIC_GOOGLE_CLIENT_ID));
 	googleOAuthProvider.setCredentials({ access_token: code });
 

@@ -7,7 +7,9 @@ import type { UserSession } from "entities/Session";
 import { fetcher } from "interface/utils/fetcher";
 import { getURL } from "models/webserver";
 import dynamic from "next/dynamic";
+import { useRouter } from "next/navigation";
 import React, { memo, type FC, useState } from "react";
+import { toast } from "react-toastify";
 import { useBoolean } from "react-use";
 
 import { Module } from "./Module";
@@ -33,6 +35,7 @@ export interface ModuleManagerProps {
 const ModuleManagerWithoutProvider: FC<ModuleManagerProps> = memo(function Component({ session }) {
 	const [isDialogOpen, toggleDialog] = useBoolean(false);
 	const [dialog, setDialog] = useState<string | null>(null);
+	const router = useRouter();
 
 	const syncGoogleAccount = useGoogleLogin({
 		onSuccess: async ({ access_token }) => {
@@ -45,15 +48,12 @@ const ModuleManagerWithoutProvider: FC<ModuleManagerProps> = memo(function Compo
 			);
 
 			if (error) {
-				console.log(
-					`${error.message || "Não foi possível sincronizar sua conta Google."} ${
-						error.action || "Tente novamente."
-					}`
-				);
+				toast.error(error.message || "Não foi possível sincronizar sua conta Google.");
+				console.error(error);
 				return;
 			}
 
-			console.log("Conta Google sincronizada.");
+			router.refresh();
 		},
 	});
 
@@ -63,15 +63,12 @@ const ModuleManagerWithoutProvider: FC<ModuleManagerProps> = memo(function Compo
 		});
 
 		if (error) {
-			console.log(
-				`${error.message || "Não foi possível remover vínculo Google."} ${
-					error.action || "Tente novamente."
-				}`
-			);
+			toast.error(error.message || "Não foi possível remover vínculo Google.");
+			console.error(error);
 			return;
 		}
 
-		console.log("Conta Google desvinculada com sucesso.");
+		router.refresh();
 	};
 
 	return (

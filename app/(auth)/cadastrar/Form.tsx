@@ -8,6 +8,7 @@ import { getURL } from "models/webserver";
 import Link from "next/link";
 import { useRouter, useSearchParams } from "next/navigation";
 import React, { useCallback, useEffect, useRef, useState, type FC, type FormEvent } from "react";
+import { toast } from "react-toastify";
 
 export const Form: FC = () => {
 	const router = useRouter();
@@ -57,7 +58,8 @@ export const Form: FC = () => {
 			}
 
 			setIsLoading(false);
-			return router.push("/login");
+			toast.success("Conta criada com sucesso. Faça login.");
+			router.push("/login");
 		},
 		[router]
 	);

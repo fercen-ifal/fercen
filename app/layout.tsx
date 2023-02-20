@@ -2,7 +2,9 @@ import { Poppins } from "@next/font/google";
 
 import { Header } from "interface/components/Header";
 import React from "react";
+import "react-toastify/dist/ReactToastify.min.css";
 
+import { Toasts } from "./Toasts";
 import "./globals.css";
 
 const poppins = Poppins({
@@ -18,6 +20,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
 			<body className={`${poppins.variable} font-sans`}>
 				<Header />
 				{children}
+				<Toasts />
 			</body>
 		</html>
 	);
