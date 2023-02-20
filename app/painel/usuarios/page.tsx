@@ -1,11 +1,12 @@
-import React from "react";
-import { MdManageAccounts, MdWarning } from "react-icons/md";
+import type { User } from "entities/User";
 import { fetcher } from "interface/utils/fetcher";
 import { getURL } from "models/webserver";
-import type { User } from "entities/User";
 import { cookies } from "next/headers";
-import { UserCard } from "./UserCard";
+import React from "react";
+import { MdManageAccounts, MdWarning } from "react-icons/md";
+
 import { Search } from "./Search";
+import { UserCard } from "./UserCard";
 
 async function getUsers() {
 	const NEXT_CACHE_LIFETIME = 10;

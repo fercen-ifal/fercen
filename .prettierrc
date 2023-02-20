@@ -9,5 +9,7 @@
 	"endOfLine": "crlf",
 	"jsxSingleQuote": false,
 	"printWidth": 100,
-	"useTabs": true
+	"useTabs": true,
+	"importOrder": ["^@(.*)$", "^[^./](.*)$", "^[./]"],
+	"importOrderSeparation": true
 }

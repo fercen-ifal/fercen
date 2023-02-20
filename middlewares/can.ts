@@ -1,9 +1,9 @@
 import { type Permission, Permissions } from "entities/Permissions";
+import type { Session } from "entities/Session";
 import { ForbiddenError, UnauthorizedError, ValidationError } from "errors/index";
 import type { ApiRequest } from "models/connect";
 import type { NextApiResponse } from "next";
 import type { Middleware, NextHandler } from "next-connect";
-import type { Session } from "entities/Session";
 
 /**
  * Verifica se o usuário possui a permissão necessária.

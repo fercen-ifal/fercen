@@ -1,17 +1,17 @@
+import retry from "async-retry";
+import { hash } from "bcrypt";
+import { addMinutes, isBefore } from "date-fns";
 import type { User } from "entities/User";
 import { InternalServerError, NotFoundError, ValidationError } from "errors/index";
+import { firestore as FirebaseFirestore } from "firebase-admin";
 import { canRequest } from "middlewares/can";
 import nc, { type ApiRequest } from "models/connect";
 import validator from "models/validator";
+import { getURL } from "models/webserver";
 import type { NextApiResponse } from "next";
 import type { RequestHandler } from "next-connect";
 import { mailProvider } from "providers/index";
 import { recoveryCodesRepository, usersRepository } from "repositories/index";
-import { firestore as FirebaseFirestore } from "firebase-admin";
-import { addMinutes, isBefore } from "date-fns";
-import { hash } from "bcrypt";
-import retry from "async-retry";
-import { getURL } from "models/webserver";
 
 interface GetHandlerParams {
 	recoveryCode: string;

@@ -2,13 +2,15 @@
 
 import { Dialog } from "@headlessui/react";
 import { GoogleOAuthProvider, useGoogleLogin } from "@react-oauth/google";
+
 import type { UserSession } from "entities/Session";
 import { fetcher } from "interface/utils/fetcher";
 import { getURL } from "models/webserver";
+import dynamic from "next/dynamic";
 import React, { memo, type FC, useState } from "react";
 import { useBoolean } from "react-use";
+
 import { Module } from "./Module";
-import dynamic from "next/dynamic";
 
 const dynamicLoading = () => <span className="w-full text-center">Carregando...</span>;
 

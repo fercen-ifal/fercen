@@ -1,5 +1,5 @@
-import type { IronSessionOptions } from "iron-session";
 import type { Session } from "entities/Session";
+import type { IronSessionOptions } from "iron-session";
 
 export const sessionOptions: IronSessionOptions = {
 	cookieName: "fercen-session",

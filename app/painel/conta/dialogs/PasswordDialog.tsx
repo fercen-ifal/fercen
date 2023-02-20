@@ -1,6 +1,7 @@
 "use client";
 
 import { Dialog } from "@headlessui/react";
+
 import { Button } from "interface/components/Button";
 import { TextField } from "interface/components/TextField";
 import { fetcher } from "interface/utils/fetcher";
@@ -9,6 +10,7 @@ import { useRouter } from "next/navigation";
 import { type FC, useRef, useState, useCallback, type FormEvent, memo } from "react";
 import { MdClose } from "react-icons/md";
 import { useBoolean } from "react-use";
+
 import type { DialogProps } from ".";
 
 export const PasswordDialog: FC<DialogProps> = memo(function Component({ close }) {

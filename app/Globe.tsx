@@ -1,6 +1,7 @@
 "use client";
 
 import { Canvas, useFrame } from "@react-three/fiber";
+
 import React, { type FC, memo, useRef, useEffect, useState } from "react";
 import { BufferGeometry, Color, Material, Mesh, Texture, TextureLoader } from "three";
 

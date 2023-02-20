@@ -1,10 +1,10 @@
 "use client";
 
+import { Button } from "interface/components/Button";
 import { TextField } from "interface/components/TextField";
 import { fetcher } from "interface/utils/fetcher";
 import { getURL } from "models/webserver";
 import React, { useCallback, useRef, useState, type FC, type FormEvent } from "react";
-import { Button } from "interface/components/Button";
 
 export const Form: FC = () => {
 	const emailInputRef = useRef<HTMLInputElement>(null);

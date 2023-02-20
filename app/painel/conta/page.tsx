@@ -1,6 +1,7 @@
+import { getSession } from "interface/hooks/getSession";
 import React from "react";
 import { MdAccountCircle } from "react-icons/md";
-import { getSession } from "interface/hooks/getSession";
+
 import { ModuleManager } from "./ModuleManager";
 
 export default async function Page() {

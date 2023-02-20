@@ -1,7 +1,9 @@
-import React from "react";
-import "./globals.css";
 import { Poppins } from "@next/font/google";
+
 import { Header } from "interface/components/Header";
+import React from "react";
+
+import "./globals.css";
 
 const poppins = Poppins({
 	subsets: ["latin"],

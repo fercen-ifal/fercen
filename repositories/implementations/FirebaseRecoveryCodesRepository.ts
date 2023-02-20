@@ -1,10 +1,10 @@
+import retry from "async-retry";
+import type { RecoveryCode, UpdatableRecoveryCode } from "entities/RecoveryCode";
 import { InternalServerError } from "errors/index";
 import { firestore } from "models/database";
-import { v4 as uuid } from "uuid";
-import retry from "async-retry";
 import { nanoid } from "nanoid";
 import type { IRecoveryCodesRepository } from "repositories/IRecoveryCodesRepository";
-import type { RecoveryCode, UpdatableRecoveryCode } from "entities/RecoveryCode";
+import { v4 as uuid } from "uuid";
 
 /**
  * Classe que implementa o repositório de códigos de recuperação do Firestore.

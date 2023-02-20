@@ -1,9 +1,9 @@
 "use client";
 
-import { useEffect } from "react";
-import useSWR, { type KeyedMutator } from "swr";
 import type { UserSession } from "entities/Session";
 import { useRouter } from "next/navigation";
+import { useEffect } from "react";
+import useSWR, { type KeyedMutator } from "swr";
 
 interface SessionsApiData {
 	message: string;

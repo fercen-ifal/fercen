@@ -1,12 +1,11 @@
 "use client";
 
+import { useSession } from "interface/hooks/useSession";
 import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import React, { memo } from "react";
-import { useSession } from "interface/hooks/useSession";
-
 import logo from "public/logo-horizontal.webp";
+import React, { memo } from "react";
 
 export const Header = memo(function Component() {
 	const pathname = usePathname();

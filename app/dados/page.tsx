@@ -1,7 +1,5 @@
 "use client";
 
-import React from "react";
-import { Bar, Pie } from "react-chartjs-2";
 import {
 	Chart as ChartJS,
 	CategoryScale,
@@ -12,6 +10,9 @@ import {
 	Legend,
 	ArcElement,
 } from "chart.js";
+import React from "react";
+import { Bar, Pie } from "react-chartjs-2";
+
 import { data, monthsLabel } from "./dummyData";
 
 ChartJS.register(CategoryScale, LinearScale, BarElement, ArcElement, Title, Tooltip, Legend);

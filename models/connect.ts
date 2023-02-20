@@ -7,12 +7,13 @@ import {
 	UnauthorizedError,
 	InternalServerError,
 } from "errors";
+import { ironSession } from "iron-session/express";
 import type { NextApiRequest, NextApiResponse } from "next";
 import nextConnect, { type Middleware } from "next-connect";
-import { v4 as uuid } from "uuid";
-import { ironSession } from "iron-session/express";
-import { sessionOptions } from "./session";
 import { usersRepository } from "repositories/index";
+import { v4 as uuid } from "uuid";
+
+import { sessionOptions } from "./session";
 
 export interface ApiRequest extends NextApiRequest {
 	requestId?: string;

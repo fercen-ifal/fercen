@@ -1,11 +1,11 @@
+import retry from "async-retry";
+import { compare } from "bcrypt";
 import type { DatabaseUser, User, UpdatableUser } from "entities/User";
 import { InternalServerError } from "errors/index";
+import { firestore as FirebaseFirestore } from "firebase-admin";
 import { firestore } from "models/database";
 import type { IUsersRepository } from "repositories/IUsersRepository";
 import { v4 as uuid } from "uuid";
-import retry from "async-retry";
-import { firestore as FirebaseFirestore } from "firebase-admin";
-import { compare } from "bcrypt";
 
 /**
  * Classe que implementa o repositório de usuários do Firestore.

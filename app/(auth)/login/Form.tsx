@@ -1,5 +1,8 @@
 "use client";
 
+import { GoogleOAuthProvider, useGoogleLogin } from "@react-oauth/google";
+
+import { Button } from "interface/components/Button";
 import { FormContainer } from "interface/components/FormContainer";
 import { TextField } from "interface/components/TextField";
 import { fetcher } from "interface/utils/fetcher";
@@ -7,10 +10,8 @@ import { getURL } from "models/webserver";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import React, { useCallback, useRef, useState, type FC, type FormEvent } from "react";
-import { ImGoogle } from "react-icons/im";
 import { BsMicrosoft } from "react-icons/bs";
-import { Button } from "interface/components/Button";
-import { GoogleOAuthProvider, useGoogleLogin } from "@react-oauth/google";
+import { ImGoogle } from "react-icons/im";
 
 const FormWithoutProvider: FC = () => {
 	const router = useRouter();

@@ -1,13 +1,13 @@
 import { InternalServerError, ValidationError } from "errors/index";
+import { firestore as FirebaseFirestore } from "firebase-admin";
 import { OAuth2Client } from "google-auth-library";
+import { google } from "googleapis";
 import { canRequest } from "middlewares/can";
 import nc, { type ApiRequest } from "models/connect";
 import validator from "models/validator";
 import type { NextApiResponse } from "next";
 import type { RequestHandler } from "next-connect";
 import { usersRepository } from "repositories/index";
-import { google } from "googleapis";
-import { firestore as FirebaseFirestore } from "firebase-admin";
 
 interface PostHandlerBody {
 	code: string;

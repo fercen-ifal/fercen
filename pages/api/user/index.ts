@@ -1,14 +1,14 @@
+import retry from "async-retry";
+import { hash } from "bcrypt";
 import { InternalServerError, ValidationError } from "errors/index";
 import { canRequest } from "middlewares/can";
 import nc, { type ApiRequest } from "models/connect";
 import validator from "models/validator";
+import { getURL } from "models/webserver";
 import type { NextApiResponse } from "next";
 import type { RequestHandler } from "next-connect";
-import { usersRepository } from "repositories/index";
-import retry from "async-retry";
-import { hash } from "bcrypt";
 import { mailProvider } from "providers/index";
-import { getURL } from "models/webserver";
+import { usersRepository } from "repositories/index";
 
 interface PutHandlerBody {
 	fullname?: string;

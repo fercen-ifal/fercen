@@ -1,11 +1,11 @@
+import retry from "async-retry";
+import { InternalServerError } from "errors/index";
+import mailing from "models/mail";
 import type {
 	IMailProvider,
 	IMailProviderContext,
 	IMailProviderSettings,
 } from "providers/IMailProvider";
-import retry from "async-retry";
-import mailing from "models/mail";
-import { InternalServerError } from "errors/index";
 
 /**
  * Classe que implementa o provedor de emails da Sendgrid.

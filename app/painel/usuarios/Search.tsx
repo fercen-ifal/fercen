@@ -13,6 +13,7 @@ import React, {
 	type ChangeEvent,
 } from "react";
 import { MdSearch } from "react-icons/md";
+
 import { UserCard } from "./UserCard";
 
 export interface SearchProps {
