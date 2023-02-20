@@ -274,4 +274,42 @@ const schemas: Record<string, () => Joi.ObjectSchema> = {
 				}),
 		});
 	},
+
+	permissions: () => {
+		return Joi.object({
+			permissions: Joi.array()
+				.items(
+					Joi.string()
+						.trim()
+						.lowercase()
+						.regex(/[a-z:]{1,30}/)
+						.invalid(null)
+						.min(1)
+						.max(30)
+						.messages({
+							"any.required": "O campo {#label} é obrigatório.",
+							"any.invalid": "O campo {#label} não pode ser nulo.",
+							"string.empty": "O campo {#label} não pode estar em branco.",
+							"string.base": "O campo {#label} deve ser uma string.",
+							"string.min":
+								"O campo {#label} deve ter, no mínimo, {#limit} caracteres.",
+							"string.max":
+								"O campo {#label} deve ter, no máximo, {#limit} caracteres.",
+							"string.pattern.base":
+								"O campo {#label} deve ter apenas letras e dois pontos.",
+						})
+						.required()
+				)
+				.when("$required.permissions", {
+					is: "required",
+					then: Joi.required(),
+					otherwise: Joi.optional(),
+				})
+				.unique()
+				.messages({
+					"any.required": "O campo {#label} é obrigatório.",
+					"array.unique": "O campo {#label} deve ter apenas valores únicos.",
+				}),
+		});
+	},
 };
