@@ -1,3 +1,4 @@
+import { MobileMenu } from "interface/components/MobileMenu";
 import { getSession } from "interface/hooks/getSession";
 import React from "react";
 import {
@@ -8,7 +9,6 @@ import {
 	MdDataSaverOff,
 } from "react-icons/md";
 
-import { MobileMenu } from "./MobileMenu";
 import { SubModule } from "./SubModule";
 
 export default async function DashboardLayout({ children }: { children: React.ReactNode }) {

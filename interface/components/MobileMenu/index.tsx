@@ -46,7 +46,7 @@ export const MobileMenu: FC = memo(function Component() {
 			<button
 				type="button"
 				aria-labelledby="menuButtonLabel"
-				className="sm:hidden fixed left-4 top-4 p-1 z-[2] bg-white rounded shadow"
+				className="sm:hidden fixed left-4 top-4 p-1 z-[2] bg-white rounded shadow print:hidden"
 				onClick={onClick}
 			>
 				<span id="menuButtonLabel" className="sr-only">
