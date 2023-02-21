@@ -1,11 +1,26 @@
 "use client";
 
 import type { ElectricityBill } from "entities/Electricity";
+import dynamic from "next/dynamic";
 import React, { type FC, memo, useMemo, useCallback } from "react";
-import { Bar, Pie } from "react-chartjs-2";
 import { MdWarning } from "react-icons/md";
 
 import { monthsLabels } from "../electricityData";
+
+const Bar = dynamic(() => import("react-chartjs-2").then(mod => mod.Bar), {
+	loading: () => (
+		<>
+			<span>Carregando gráfico...</span>
+		</>
+	),
+});
+const Pie = dynamic(() => import("react-chartjs-2").then(mod => mod.Pie), {
+	loading: () => (
+		<>
+			<span>Carregando gráfico...</span>
+		</>
+	),
+});
 
 export interface ElectricityAnnualReportProps {
 	data: ElectricityBill[];

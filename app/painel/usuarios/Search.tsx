@@ -1,17 +1,8 @@
 "use client";
 
 import type { User } from "entities/User";
-import Fuse from "fuse.js";
 import { TextField } from "interface/components/TextField";
-import React, {
-	type FC,
-	memo,
-	useMemo,
-	useState,
-	useEffect,
-	useCallback,
-	type ChangeEvent,
-} from "react";
+import React, { type FC, memo, useState, useCallback, type ChangeEvent } from "react";
 import { MdSearch } from "react-icons/md";
 
 import { UserCard } from "./UserCard";
@@ -21,32 +12,32 @@ export interface SearchProps {
 }
 
 export const Search: FC<SearchProps> = memo(function Component({ data }) {
-	const fuse = useMemo(() => {
-		return new Fuse(data, {
-			keys: [
-				"fullname",
-				"username",
-				"email",
-				"googleProvider.email",
-				"microsoftProvider.email",
-			],
-			useExtendedSearch: true,
-			threshold: 0.6,
-			isCaseSensitive: false,
-		});
-	}, [data]);
-
 	const [search, setSearch] = useState("");
-	const [results, setResults] = useState(fuse.search(search));
+	const [results, setResults] = useState<{ item: User }[]>([]);
 
-	useEffect(() => {
-		const newResults = fuse.search(search);
-		setResults(newResults);
-	}, [fuse, search]);
+	const onSearchChange = useCallback(
+		async (event: ChangeEvent<HTMLInputElement>) => {
+			const value = event.target.value;
 
-	const onSearchChange = useCallback((event: ChangeEvent<HTMLInputElement>) => {
-		setSearch(event.target.value);
-	}, []);
+			const Fuse = (await import("fuse.js")).default;
+			const fuse = new Fuse(data, {
+				keys: [
+					"fullname",
+					"username",
+					"email",
+					"googleProvider.email",
+					"microsoftProvider.email",
+				],
+				useExtendedSearch: true,
+				threshold: 0.6,
+				isCaseSensitive: false,
+			});
+
+			setSearch(value);
+			setResults(fuse.search(value));
+		},
+		[data]
+	);
 
 	return (
 		<>
