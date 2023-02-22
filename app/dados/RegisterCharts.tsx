@@ -9,6 +9,8 @@ import {
 	Tooltip,
 	Legend,
 	ArcElement,
+	PointElement,
+	LineElement,
 } from "chart.js";
 import { type FC, memo, useEffect } from "react";
 
@@ -19,6 +21,8 @@ export const RegisterCharts: FC = memo(function Component() {
 			LinearScale,
 			BarElement,
 			ArcElement,
+			PointElement,
+			LineElement,
 			Title,
 			Tooltip,
 			Legend

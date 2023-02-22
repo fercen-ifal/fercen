@@ -185,7 +185,7 @@ export const ElectricityAnnualReport: FC<ElectricityAnnualReportProps> = memo(fu
 					<h2 className="text-2xl font-semibold">
 						Relatórios anuais de {year} (energia)
 					</h2>
-					<div className="flex flex-col p-3 gap-1 rounded-sm shadow-sm bg-slate-50">
+					<div className="flex flex-col p-3 gap-2 rounded-sm shadow-sm bg-slate-50">
 						<h3 className="text-sm font-medium pb-1 italic">Análises e feedback</h3>
 						{data.filter(value => value.year === year).length < 12 ? (
 							<div className="flex items-center gap-2 p-2 leading-none rounded bg-yellow-200/30 border border-yellow-500/30">
@@ -198,8 +198,8 @@ export const ElectricityAnnualReport: FC<ElectricityAnnualReportProps> = memo(fu
 								</span>
 							</div>
 						) : null}
-						<div>
-							<h3>
+						<div className="flex flex-col gap-2 sm:gap-1">
+							<h3 className="leading-none">
 								Custo total de{" "}
 								<span className="underline decoration-primary-darker">
 									{new Intl.NumberFormat("pt-BR", {
@@ -210,32 +210,32 @@ export const ElectricityAnnualReport: FC<ElectricityAnnualReportProps> = memo(fu
 							</h3>
 							{yearIndex > 0 ? (
 								getYearTotal(year) > getYearTotal(year - 1) ? (
-									<h3>
+									<h3 className="leading-none">
 										Custo <span className="text-red-900">aumentou</span>{" "}
 										{getYearsDifference(year, year - 1)} em relação ao ano
 										passado.
 									</h3>
 								) : (
-									<h3>
+									<h3 className="leading-none">
 										Custo <span className="text-emerald-800">diminuiu</span>{" "}
 										{getYearsDifference(year - 1, year)} em relação ao ano
 										passado.
 									</h3>
 								)
 							) : null}
-							<h3>
+							<h3 className="leading-none">
 								Custo médio mensal de{" "}
 								<span className="underline decoration-primary-darker">
 									{getAverageCost(year)}
 								</span>
 							</h3>
 						</div>
-						<div>
-							<h3>
+						<div className="flex flex-col gap-2 sm:gap-1">
+							<h3 className="leading-none">
 								Mês que mais consumiu kWh:{" "}
 								{monthsLabels[getHighestConsumptions(year)[0].month.index]}
 							</h3>
-							<h3>
+							<h3 className="leading-none">
 								Mês que menos consumiu kWh:{" "}
 								{
 									monthsLabels[
