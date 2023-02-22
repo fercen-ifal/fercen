@@ -1,7 +1,8 @@
+import dynamic from "next/dynamic";
 import Link from "next/link";
 import React from "react";
 
-import { Globe } from "./Globe";
+const Globe = dynamic(() => import("./Globe").then(mod => mod.Globe));
 
 export default function Page() {
 	return (
