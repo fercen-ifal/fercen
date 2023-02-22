@@ -3,6 +3,7 @@
 import type { ElectricityBill } from "entities/Electricity";
 import dynamic from "next/dynamic";
 import React, { type FC, memo, useMemo, useCallback } from "react";
+import { MdWarning } from "react-icons/md";
 
 import { monthsLabels } from "../electricityData";
 
@@ -115,11 +116,29 @@ export const ElectricityMonthReport: FC<ElectricityMonthReportProps> = memo(func
 		[data]
 	);
 
-	// TODO: Improve this condition's return
 	if (!monthData) {
 		return (
 			<>
-				<span>Dados para este mês não encontrados</span>
+				<section className="flex flex-col justify-center flex-wrap gap-5">
+					<h2 className="text-2xl font-semibold">
+						Relatório do mês {monthsLabels[monthIndex] || "??"} de {year} (energia)
+					</h2>
+					<div className="flex items-center gap-2 p-2 leading-none rounded bg-yellow-200/30 border border-yellow-500/30">
+						<div>
+							<MdWarning className="text-lg" />
+						</div>
+						<span className="text-sm">
+							Não há dados de {monthsLabels[monthIndex] || "??"} de {year} cadastrados
+							na plataforma. Se você achar que isto é um erro,{" "}
+							<a
+								href="mailto:jpnm1@aluno.ifal.edu.br?subject=(FERCEN - Erro/Bug) Digite aqui o assunto"
+								className="underline"
+							>
+								entre em contato com o suporte FERCEN.
+							</a>
+						</span>
+					</div>
+				</section>
 			</>
 		);
 	}
@@ -221,7 +240,7 @@ export const ElectricityMonthReport: FC<ElectricityMonthReportProps> = memo(func
 						</div>
 					</>
 				) : null}
-				<div className="flex flex-wrap justify-center gap-5">
+				<div className="flex flex-wrap justify-center gap-7 lg:gap-16">
 					<div className="w-full max-w-[500px] sm:w-[500px] print:w-full">
 						<Line
 							data={totalPriceChart}

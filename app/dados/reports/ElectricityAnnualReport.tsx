@@ -23,20 +23,24 @@ const Pie = dynamic(() => import("react-chartjs-2").then(mod => mod.Pie), {
 });
 
 export interface ElectricityAnnualReportProps {
+	year?: number;
 	data: ElectricityBill[];
 }
 
 export const ElectricityAnnualReport: FC<ElectricityAnnualReportProps> = memo(function Component({
+	year,
 	data,
 }) {
-	const years = useMemo(() => {
+	const years: number[] = useMemo(() => {
+		if (year) return [year];
+
 		return data
 			.map(value => value.year)
 			.sort()
 			.filter((item, pos, arr) => {
 				return !pos || item != arr[pos - 1];
 			});
-	}, [data]);
+	}, [year, data]);
 
 	const totalPriceCharts = useMemo(() => {
 		return years.map(year => {
@@ -136,6 +140,8 @@ export const ElectricityAnnualReport: FC<ElectricityAnnualReportProps> = memo(fu
 
 	const getYearTotal = useCallback(
 		(year: number) => {
+			if (year && data.filter(value => value.year === year).length <= 0) return 0;
+
 			return data
 				.filter(value => value.year === year)
 				.map(value => value.totalPrice)
@@ -177,6 +183,33 @@ export const ElectricityAnnualReport: FC<ElectricityAnnualReportProps> = memo(fu
 		},
 		[data]
 	);
+
+	if (year && data.filter(value => value.year === year).length <= 0) {
+		return (
+			<>
+				<section className="flex flex-col justify-center flex-wrap gap-5">
+					<h2 className="text-2xl font-semibold">
+						Relatórios anuais de {year} (energia)
+					</h2>
+					<div className="flex items-center gap-2 p-2 leading-none rounded bg-yellow-200/30 border border-yellow-500/30">
+						<div>
+							<MdWarning className="text-lg" />
+						</div>
+						<span className="text-sm">
+							Não há dados de {year} cadastrados na plataforma. Se você achar que isto
+							é um erro,{" "}
+							<a
+								href="mailto:jpnm1@aluno.ifal.edu.br?subject=(FERCEN - Erro/Bug) Digite aqui o assunto"
+								className="underline"
+							>
+								entre em contato com o suporte FERCEN.
+							</a>
+						</span>
+					</div>
+				</section>
+			</>
+		);
+	}
 
 	return (
 		<>
