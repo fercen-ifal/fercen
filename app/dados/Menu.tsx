@@ -24,8 +24,7 @@ export const Menu: FC = memo(function Component() {
 
 	const onFilter = useCallback(() => {
 		const newParams = new URLSearchParams({ report, year: String(year), month: String(month) });
-		window.location.search = newParams.toString();
-		router.refresh();
+		router.push("/dados?" + newParams.toString());
 	}, [report, year, month, router]);
 
 	// TODO: Load available years in the year select component dynamically

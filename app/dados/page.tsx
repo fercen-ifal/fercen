@@ -5,11 +5,13 @@ import { RegisterCharts } from "./RegisterCharts";
 import { generateElectricityData } from "./electricityData";
 import { validateMonthParam, validateReportParam, validateYearParam } from "./paramsValidators";
 
-const ElectricityAnnualReport = dynamic(() =>
-	import("./reports/ElectricityAnnualReport").then(mod => mod.ElectricityAnnualReport)
+const ElectricityAnnualReport = dynamic(
+	() => import("./reports/ElectricityAnnualReport").then(mod => mod.ElectricityAnnualReport),
+	{ ssr: false }
 );
-const ElectricityMonthReport = dynamic(() =>
-	import("./reports/ElectricityMonthReport").then(mod => mod.ElectricityMonthReport)
+const ElectricityMonthReport = dynamic(
+	() => import("./reports/ElectricityMonthReport").then(mod => mod.ElectricityMonthReport),
+	{ ssr: false }
 );
 
 export default function Page({
