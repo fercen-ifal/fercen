@@ -1,10 +1,14 @@
 import { PermissionsLabels } from "entities/Permissions";
 import type { User } from "entities/User";
-import { Button } from "interface/components/Button";
+import dynamic from "next/dynamic";
 import React, { type FC, memo } from "react";
-import { MdEdit } from "react-icons/md";
+
+const UserCardDialog = dynamic(() => import("./UserCardDialog").then(mod => mod.UserCardDialog), {
+	ssr: false,
+});
 
 export const UserCard: FC<User> = memo(function Component({
+	id,
 	fullname,
 	username,
 	email,
@@ -36,10 +40,8 @@ export const UserCard: FC<User> = memo(function Component({
 						</ul>
 					</div>
 				</div>
-				<Button className="bg-gray-500 text-white text-sm print:hidden">
-					<MdEdit className="text-lg" />
-					Editar
-				</Button>
+
+				<UserCardDialog {...{ id, fullname, username, email, permissions }} />
 			</li>
 		</>
 	);
