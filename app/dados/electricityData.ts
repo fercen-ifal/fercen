@@ -26,10 +26,7 @@ export const generateElectricityData = (): ElectricityBill[] => {
 		{
 			id: uuid(),
 			year: 2021,
-			month: {
-				id: "00/2021",
-				index: 0, // Janeiro
-			},
+			month: 0,
 			peakConsumption: {
 				kWh: rng(5_000, 1_000),
 				unitPrice: rng(3, 1),
@@ -45,10 +42,7 @@ export const generateElectricityData = (): ElectricityBill[] => {
 		{
 			id: uuid(),
 			year: 2021,
-			month: {
-				id: "01/2021",
-				index: 1, // Fevereiro
-			},
+			month: 1,
 			peakConsumption: {
 				kWh: rng(5_000, 1_000),
 				unitPrice: rng(3, 1),
@@ -64,10 +58,7 @@ export const generateElectricityData = (): ElectricityBill[] => {
 		{
 			id: uuid(),
 			year: 2021,
-			month: {
-				id: "02/2021",
-				index: 2, // Março
-			},
+			month: 2,
 			peakConsumption: {
 				kWh: rng(5_000, 1_000),
 				unitPrice: rng(3, 1),
@@ -83,10 +74,7 @@ export const generateElectricityData = (): ElectricityBill[] => {
 		{
 			id: uuid(),
 			year: 2021,
-			month: {
-				id: "03/2021",
-				index: 3, // Abril
-			},
+			month: 3,
 			peakConsumption: {
 				kWh: rng(5_000, 1_000),
 				unitPrice: rng(3, 1),
@@ -102,10 +90,7 @@ export const generateElectricityData = (): ElectricityBill[] => {
 		{
 			id: uuid(),
 			year: 2021,
-			month: {
-				id: "04/2021",
-				index: 4, // Maio
-			},
+			month: 4,
 			peakConsumption: {
 				kWh: rng(5_000, 1_000),
 				unitPrice: rng(3, 1),
@@ -121,10 +106,7 @@ export const generateElectricityData = (): ElectricityBill[] => {
 		{
 			id: uuid(),
 			year: 2021,
-			month: {
-				id: "05/2021",
-				index: 5, // Junho
-			},
+			month: 5,
 			peakConsumption: {
 				kWh: rng(5_000, 1_000),
 				unitPrice: rng(3, 1),
@@ -140,10 +122,7 @@ export const generateElectricityData = (): ElectricityBill[] => {
 		{
 			id: uuid(),
 			year: 2021,
-			month: {
-				id: "06/2021",
-				index: 6, // Julho
-			},
+			month: 6,
 			peakConsumption: {
 				kWh: rng(5_000, 1_000),
 				unitPrice: rng(3, 1),
@@ -159,10 +138,7 @@ export const generateElectricityData = (): ElectricityBill[] => {
 		{
 			id: uuid(),
 			year: 2021,
-			month: {
-				id: "07/2021",
-				index: 7, // Agosto
-			},
+			month: 7,
 			peakConsumption: {
 				kWh: rng(5_000, 1_000),
 				unitPrice: rng(3, 1),
@@ -178,10 +154,7 @@ export const generateElectricityData = (): ElectricityBill[] => {
 		{
 			id: uuid(),
 			year: 2021,
-			month: {
-				id: "08/2021",
-				index: 8, // Setembro
-			},
+			month: 8,
 			peakConsumption: {
 				kWh: rng(5_000, 1_000),
 				unitPrice: rng(3, 1),
@@ -197,10 +170,7 @@ export const generateElectricityData = (): ElectricityBill[] => {
 		{
 			id: uuid(),
 			year: 2021,
-			month: {
-				id: "09/2021",
-				index: 9, // Outubro
-			},
+			month: 9,
 			peakConsumption: {
 				kWh: rng(5_000, 1_000),
 				unitPrice: rng(3, 1),
@@ -216,10 +186,7 @@ export const generateElectricityData = (): ElectricityBill[] => {
 		{
 			id: uuid(),
 			year: 2021,
-			month: {
-				id: "10/2021",
-				index: 10, // Novembro
-			},
+			month: 10,
 			peakConsumption: {
 				kWh: rng(5_000, 1_000),
 				unitPrice: rng(3, 1),
@@ -235,10 +202,7 @@ export const generateElectricityData = (): ElectricityBill[] => {
 		{
 			id: uuid(),
 			year: 2021,
-			month: {
-				id: "11/2021",
-				index: 11, // Dezembro
-			},
+			month: 11,
 			peakConsumption: {
 				kWh: rng(5_000, 1_000),
 				unitPrice: rng(3, 1),
@@ -257,10 +221,7 @@ export const generateElectricityData = (): ElectricityBill[] => {
 		{
 			id: uuid(),
 			year: 2022,
-			month: {
-				id: "00/2022",
-				index: 0, // Janeiro
-			},
+			month: 0,
 			peakConsumption: {
 				kWh: rng(5_000, 1_000),
 				unitPrice: rng(3, 1),
@@ -276,10 +237,7 @@ export const generateElectricityData = (): ElectricityBill[] => {
 		{
 			id: uuid(),
 			year: 2022,
-			month: {
-				id: "01/2022",
-				index: 1, // Fevereiro
-			},
+			month: 1,
 			peakConsumption: {
 				kWh: 1_042,
 				unitPrice: 1.90435,
@@ -302,10 +260,7 @@ export const generateElectricityData = (): ElectricityBill[] => {
 		{
 			id: uuid(),
 			year: 2022,
-			month: {
-				id: "02/2022",
-				index: 2, // Março
-			},
+			month: 2,
 			peakConsumption: {
 				kWh: 1_559,
 				unitPrice: 1.90435,
@@ -328,10 +283,7 @@ export const generateElectricityData = (): ElectricityBill[] => {
 		{
 			id: uuid(),
 			year: 2022,
-			month: {
-				id: "03/2022",
-				index: 3, // Abril
-			},
+			month: 3,
 			peakConsumption: {
 				kWh: 3_390,
 				unitPrice: 1.90435,
@@ -354,10 +306,7 @@ export const generateElectricityData = (): ElectricityBill[] => {
 		{
 			id: uuid(),
 			year: 2022,
-			month: {
-				id: "04/2022",
-				index: 4, // Maio
-			},
+			month: 4,
 			peakConsumption: {
 				kWh: 2_448,
 				unitPrice: 2.20247,
@@ -380,10 +329,7 @@ export const generateElectricityData = (): ElectricityBill[] => {
 		{
 			id: uuid(),
 			year: 2022,
-			month: {
-				id: "05/2022",
-				index: 5, // Junho
-			},
+			month: 5,
 			peakConsumption: {
 				kWh: 3_638,
 				unitPrice: 2.743869,
@@ -406,10 +352,7 @@ export const generateElectricityData = (): ElectricityBill[] => {
 		{
 			id: uuid(),
 			year: 2022,
-			month: {
-				id: "06/2022",
-				index: 6, // Julho
-			},
+			month: 6,
 			peakConsumption: {
 				kWh: rng(5_000, 1_000),
 				unitPrice: rng(3, 1),
@@ -425,10 +368,7 @@ export const generateElectricityData = (): ElectricityBill[] => {
 		{
 			id: uuid(),
 			year: 2022,
-			month: {
-				id: "07/2022",
-				index: 7, // Agosto
-			},
+			month: 7,
 			peakConsumption: {
 				kWh: rng(5_000, 1_000),
 				unitPrice: rng(3, 1),
@@ -444,10 +384,7 @@ export const generateElectricityData = (): ElectricityBill[] => {
 		{
 			id: uuid(),
 			year: 2022,
-			month: {
-				id: "08/2022",
-				index: 8, // Setembro
-			},
+			month: 8,
 			peakConsumption: {
 				kWh: rng(5_000, 1_000),
 				unitPrice: rng(3, 1),
@@ -463,10 +400,7 @@ export const generateElectricityData = (): ElectricityBill[] => {
 		{
 			id: uuid(),
 			year: 2022,
-			month: {
-				id: "09/2022",
-				index: 9, // Outubro
-			},
+			month: 9,
 			peakConsumption: {
 				kWh: rng(5_000, 1_000),
 				unitPrice: rng(3, 1),
@@ -482,10 +416,7 @@ export const generateElectricityData = (): ElectricityBill[] => {
 		{
 			id: uuid(),
 			year: 2022,
-			month: {
-				id: "10/2022",
-				index: 10, // Novembro
-			},
+			month: 10,
 			peakConsumption: {
 				kWh: rng(5_000, 1_000),
 				unitPrice: rng(3, 1),
@@ -501,10 +432,7 @@ export const generateElectricityData = (): ElectricityBill[] => {
 		{
 			id: uuid(),
 			year: 2022,
-			month: {
-				id: "11/2022",
-				index: 11, // Dezembro
-			},
+			month: 11,
 			peakConsumption: {
 				kWh: rng(5_000, 1_000),
 				unitPrice: rng(3, 1),
@@ -523,10 +451,7 @@ export const generateElectricityData = (): ElectricityBill[] => {
 		{
 			id: uuid(),
 			year: 2023,
-			month: {
-				id: "00/2023",
-				index: 0, // Janeiro
-			},
+			month: 0,
 			peakConsumption: {
 				kWh: rng(5_000, 1_000),
 				unitPrice: rng(3, 1),

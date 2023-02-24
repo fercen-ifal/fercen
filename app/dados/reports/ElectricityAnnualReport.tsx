@@ -47,7 +47,7 @@ export const ElectricityAnnualReport: FC<ElectricityAnnualReportProps> = memo(fu
 			return {
 				labels: data
 					.filter(value => value.year === year)
-					.map(value => monthsLabels[value.month.index]),
+					.map(value => monthsLabels[value.month]),
 				datasets: [
 					{
 						label: "Valor da tarifa (R$)",
@@ -68,7 +68,7 @@ export const ElectricityAnnualReport: FC<ElectricityAnnualReportProps> = memo(fu
 			return {
 				labels: data
 					.filter(value => value.year === year)
-					.map(value => monthsLabels[value.month.index]),
+					.map(value => monthsLabels[value.month]),
 				datasets: [
 					{
 						label: "Consumo em ponta (kWh)",
@@ -98,7 +98,7 @@ export const ElectricityAnnualReport: FC<ElectricityAnnualReportProps> = memo(fu
 			return {
 				labels: data
 					.filter(value => value.year === year)
-					.map(value => monthsLabels[value.month.index]),
+					.map(value => monthsLabels[value.month]),
 				datasets: [
 					{
 						label: "Valor da tarifa (R$)",
@@ -266,15 +266,11 @@ export const ElectricityAnnualReport: FC<ElectricityAnnualReportProps> = memo(fu
 						<div className="flex flex-col gap-2 sm:gap-1">
 							<h3 className="leading-none">
 								Mês que mais consumiu kWh:{" "}
-								{monthsLabels[getHighestConsumptions(year)[0].month.index]}
+								{monthsLabels[getHighestConsumptions(year)[0].month]}
 							</h3>
 							<h3 className="leading-none">
 								Mês que menos consumiu kWh:{" "}
-								{
-									monthsLabels[
-										getHighestConsumptions(year).reverse()[0].month.index
-									]
-								}
+								{monthsLabels[getHighestConsumptions(year).reverse()[0].month]}
 							</h3>
 						</div>
 					</div>

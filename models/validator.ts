@@ -312,4 +312,179 @@ const schemas: Record<string, () => Joi.ObjectSchema> = {
 				}),
 		});
 	},
+
+	year: () => {
+		return Joi.object({
+			year: Joi.number()
+				.integer()
+				.positive()
+				.min(2000)
+				.max(2100)
+				.when("$required.year", {
+					is: "required",
+					then: Joi.required(),
+					otherwise: Joi.optional(),
+				})
+				.messages({
+					"any.required": "O campo {#label} é obrigatório.",
+					"number.integer": "O campo {#label} deve ser um número inteiro.",
+					"number.positive": "O campo {#label} deve ser um número positivo.",
+					"number.min": "O campo {#label} não pode ser menor que {#limit}.",
+					"number.max": "O campo {#label} não pode ser maior que {#limit}.",
+				}),
+		});
+	},
+
+	month: () => {
+		return Joi.object({
+			month: Joi.number()
+				.integer()
+				.positive()
+				.min(0)
+				.max(11)
+				.when("$required.month", {
+					is: "required",
+					then: Joi.required(),
+					otherwise: Joi.optional(),
+				})
+				.messages({
+					"any.required": "O campo {#label} é obrigatório.",
+					"number.integer": "O campo {#label} deve ser um número inteiro.",
+					"number.positive": "O campo {#label} deve ser um número positivo.",
+					"number.min": "O campo {#label} não pode ser menor que {#limit}.",
+					"number.max": "O campo {#label} não pode ser maior que {#limit}.",
+				}),
+		});
+	},
+
+	peakConsumption: () => {
+		return Joi.object({
+			peakConsumption: Joi.object({
+				kWh: Joi.number().positive().min(0).required().messages({
+					"number.base": "O campo {#label} deve ser um número inteiro.",
+					"number.positive": "O campo {#label} deve ser um número positivo.",
+					"number.min": "O campo {#label} não pode ser menor que {#limit}.",
+				}),
+				unitPrice: Joi.number().positive().min(0).required().messages({
+					"number.base": "O campo {#label} deve ser um número inteiro.",
+					"number.positive": "O campo {#label} deve ser um número positivo.",
+					"number.min": "O campo {#label} não pode ser menor que {#limit}.",
+				}),
+				total: Joi.number().positive().min(0).required().messages({
+					"number.base": "O campo {#label} deve ser um número inteiro.",
+					"number.positive": "O campo {#label} deve ser um número positivo.",
+					"number.min": "O campo {#label} não pode ser menor que {#limit}.",
+				}),
+			})
+				.min(3)
+				.max(3)
+				.when("$required.peakConsumption", {
+					is: "required",
+					then: Joi.required(),
+					otherwise: Joi.optional(),
+				})
+				.messages({
+					"any.required": "O campo {#label} é obrigatório.",
+					"object.base": "O campo {#label} deve ser um objeto.",
+					"object.min": "O campo {#label} deve ter, no mínimo, {#limit} chaves.",
+				}),
+		});
+	},
+
+	offpeakConsumption: () => {
+		return Joi.object({
+			offpeakConsumption: Joi.object({
+				kWh: Joi.number().positive().min(0).required().messages({
+					"number.base": "O campo {#label} deve ser um número inteiro.",
+					"number.positive": "O campo {#label} deve ser um número positivo.",
+					"number.min": "O campo {#label} não pode ser menor que {#limit}.",
+				}),
+				unitPrice: Joi.number().positive().min(0).required().messages({
+					"number.base": "O campo {#label} deve ser um número inteiro.",
+					"number.positive": "O campo {#label} deve ser um número positivo.",
+					"number.min": "O campo {#label} não pode ser menor que {#limit}.",
+				}),
+				total: Joi.number().positive().min(0).required().messages({
+					"number.base": "O campo {#label} deve ser um número inteiro.",
+					"number.positive": "O campo {#label} deve ser um número positivo.",
+					"number.min": "O campo {#label} não pode ser menor que {#limit}.",
+				}),
+			})
+				.min(3)
+				.max(3)
+				.when("$required.offpeakConsumption", {
+					is: "required",
+					then: Joi.required(),
+					otherwise: Joi.optional(),
+				})
+				.messages({
+					"any.required": "O campo {#label} é obrigatório.",
+					"object.base": "O campo {#label} deve ser um objeto.",
+					"object.min": "O campo {#label} deve ter, no mínimo, {#limit} chaves.",
+				}),
+		});
+	},
+
+	totalPrice: () => {
+		return Joi.object({
+			totalPrice: Joi.number()
+				.positive()
+				.min(0)
+				.when("$required.totalPrice", {
+					is: "required",
+					then: Joi.required(),
+					otherwise: Joi.optional(),
+				})
+				.messages({
+					"any.required": "O campo {#label} é obrigatório.",
+					"number.base": "O campo {#label} deve ser um número inteiro.",
+					"number.positive": "O campo {#label} deve ser um número positivo.",
+					"number.min": "O campo {#label} não pode ser menor que {#limit}.",
+				}),
+		});
+	},
+
+	items: () => {
+		return Joi.object({
+			items: Joi.array()
+				.items(
+					Joi.object({
+						label: Joi.string()
+							.trim()
+							.invalid(null)
+							.regex(/[a-zA-Z\u00C0-\u017F´\s][^_,;:/|\\*&¨%$#@!(){[}\]=+<>\d]{0,}/)
+							.max(70)
+							.required()
+							.messages({
+								"any.invalid": "O campo {#label} não pode ser nulo.",
+								"string.empty": "O campo {#label} não pode estar em branco.",
+								"string.base": "O campo {#label} deve ser uma string.",
+								"string.pattern.base":
+									"O campo {#label} deve ter apenas letras ou caracteres para nomes.",
+								"string.max":
+									"O campo {#label} deve ter, no máximo, {#limit} caracteres.",
+							}),
+						cost: Joi.number().required(),
+					})
+						.min(2)
+						.max(2)
+						.required()
+						.messages({
+							"any.required": "O campo {#label} é obrigatório.",
+							"object.base": "O campo {#label} deve ser um objeto.",
+							"object.min": "O campo {#label} deve ter, no mínimo, {#limit} chaves.",
+						})
+				)
+				.when("$required.items", {
+					is: "required",
+					then: Joi.required(),
+					otherwise: Joi.optional(),
+				})
+				.unique()
+				.messages({
+					"any.required": "O campo {#label} é obrigatório.",
+					"array.unique": "O campo {#label} deve ter apenas valores únicos.",
+				}),
+		});
+	},
 };

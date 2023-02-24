@@ -15,6 +15,10 @@ export const Permissions = {
 	// Invite related
 	"create:invite": "create:invite",
 	"read:invite": "read:invite",
+
+	// Electricity Bills related
+	"create:electricity_bill": "create:electricity_bill",
+	"update:electricity_bill": "update:electricity_bill",
 } as const;
 
 /** Labels das permissões disponíveis para uso no sistema.  */
@@ -34,6 +38,10 @@ export const PermissionsLabels = {
 	// Invite related
 	"create:invite": "Criar convites",
 	"read:invite": "Ler convites",
+
+	// Electricity Bills related
+	"create:electricity_bill": "Cadastrar contas de energia",
+	"update:electricity_bill": "Atualizar contas de energia",
 } as const;
 
 /** Permissões padrão para usuários anônimos.  */

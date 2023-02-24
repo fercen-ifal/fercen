@@ -27,7 +27,7 @@ const postHandler: RequestHandler<ApiRequest, NextApiResponse> = async (req, res
 
 	if (!canLogin || !user) {
 		throw new ValidationError({
-			message: "Seu usuário ou senha não confere.",
+			message: "Seu usuário ou senha não conferem.",
 			action: "Altere seus dados e tente novamente.",
 			errorLocationCode: "API:SESSIONS:POST:CREDENTIALS_MISMATCH",
 		});

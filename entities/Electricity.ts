@@ -6,15 +6,12 @@ export interface ElectricityConcessionaire {
 	contractedVoltage: number;
 }
 
-export type EditableElectricityConcessionaire = Partial<ElectricityConcessionaire>;
+export type UpdatableElectricityConcessionaire = Partial<ElectricityConcessionaire>;
 
 export interface ElectricityBill {
 	id: string;
 	year: number;
-	month: {
-		id: string; // monthIndex/year
-		index: number; // 0 - 11
-	};
+	month: number; // 0 - 11
 	peakConsumption: {
 		kWh: number;
 		unitPrice: number; // Valor do kWh
@@ -32,4 +29,12 @@ export interface ElectricityBill {
 	composition?: { label: string; cost: number }[];
 }
 
-export type EditableElectricityBill = Partial<Omit<ElectricityBill, "id">>;
+export type UpdatableElectricityBill = {
+	year?: number;
+	month?: number;
+	peakConsumption?: Partial<ElectricityBill["peakConsumption"]>;
+	offpeakConsumption?: Partial<ElectricityBill["offpeakConsumption"]>;
+	totalPrice?: number;
+	items?: ElectricityBill["items"];
+	composition?: ElectricityBill["composition"];
+};

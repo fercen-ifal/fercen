@@ -42,8 +42,8 @@ export default function Page({
 							.filter(value => value.year === year)
 							.map(value => (
 								<ElectricityMonthReport
-									key={value.month.id}
-									monthIndex={value.month.index}
+									key={`${value.month}/${value.year}`}
+									monthIndex={value.month}
 									year={year}
 									data={electricityData}
 								/>
