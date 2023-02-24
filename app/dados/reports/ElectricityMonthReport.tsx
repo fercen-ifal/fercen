@@ -47,6 +47,7 @@ export const ElectricityMonthReport: FC<ElectricityMonthReportProps> = memo(func
 		return {
 			labels: data
 				.filter(value => value.month === monthIndex)
+				.sort((a, b) => a.year - b.year)
 				.map(
 					value =>
 						`${monthsLabels[value.month]} de ${value.year} ${
@@ -58,6 +59,7 @@ export const ElectricityMonthReport: FC<ElectricityMonthReportProps> = memo(func
 					label: "Valor da tarifa (R$)",
 					data: data
 						.filter(value => value.month === monthIndex)
+						.sort((a, b) => a.year - b.year)
 						.map(value => value.totalPrice),
 					backgroundColor: ["rgba(54, 162, 235, 0.2)"],
 					borderColor: ["rgba(54, 162, 235, 1)"],
@@ -71,6 +73,7 @@ export const ElectricityMonthReport: FC<ElectricityMonthReportProps> = memo(func
 		return {
 			labels: data
 				.filter(value => value.month === monthIndex)
+				.sort((a, b) => a.year - b.year)
 				.map(
 					value =>
 						`${monthsLabels[value.month]} de ${value.year} ${
@@ -82,6 +85,7 @@ export const ElectricityMonthReport: FC<ElectricityMonthReportProps> = memo(func
 					label: "Consumo em ponta (kWh)",
 					data: data
 						.filter(value => value.month === monthIndex)
+						.sort((a, b) => a.year - b.year)
 						.map(value => value.peakConsumption.kWh),
 					backgroundColor: ["rgba(255, 99, 132, 0.2)"],
 					borderColor: ["rgba(255, 99, 132, 1)"],
@@ -91,6 +95,7 @@ export const ElectricityMonthReport: FC<ElectricityMonthReportProps> = memo(func
 					label: "Consumo fora de ponta (kWh)",
 					data: data
 						.filter(value => value.month === monthIndex)
+						.sort((a, b) => a.year - b.year)
 						.map(value => value.offpeakConsumption.kWh),
 					backgroundColor: ["rgba(255, 206, 86, 0.2)"],
 					borderColor: ["rgba(255, 206, 86, 1)"],

@@ -1,8 +1,10 @@
+import { ElectricityBill } from "entities/Electricity";
+import { fetcher } from "interface/utils/fetcher";
+import { getURL } from "models/webserver";
 import dynamic from "next/dynamic";
 import React from "react";
 
 import { RegisterCharts } from "./RegisterCharts";
-import { generateElectricityData } from "./electricityData";
 import { validateMonthParam, validateReportParam, validateYearParam } from "./paramsValidators";
 
 const ElectricityAnnualReport = dynamic(
@@ -14,7 +16,9 @@ const ElectricityMonthReport = dynamic(
 	{ ssr: false }
 );
 
-export default function Page({
+export const revalidate = 120;
+
+export default async function Page({
 	searchParams,
 }: {
 	searchParams?: { [key: string]: string | string[] | null };
@@ -23,7 +27,12 @@ export default function Page({
 	const year = validateYearParam(searchParams?.year || null);
 	const month = validateMonthParam(searchParams?.month || null);
 
-	const electricityData = generateElectricityData();
+	const electricity = await fetcher<{ bills: ElectricityBill[] }>(
+		new URL("/api/electricity", getURL()),
+		undefined,
+		{ next: { revalidate: 120 } }
+	);
+	const electricityData = electricity.data?.bills || [];
 
 	return (
 		<>
@@ -40,6 +49,7 @@ export default function Page({
 				{report === "allMonths"
 					? electricityData
 							.filter(value => value.year === year)
+							.sort((a, b) => a.month - b.month)
 							.map(value => (
 								<ElectricityMonthReport
 									key={`${value.month}/${value.year}`}

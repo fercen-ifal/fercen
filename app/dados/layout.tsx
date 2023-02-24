@@ -3,8 +3,6 @@ import React from "react";
 
 import { Menu } from "./Menu";
 
-export const dynamic = "force-dynamic";
-
 export default async function DataLayout({ children }: { children: React.ReactNode }) {
 	return (
 		<>
