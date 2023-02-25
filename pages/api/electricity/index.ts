@@ -1,6 +1,7 @@
 import { ElectricityBill } from "entities/Electricity";
 import { ValidationError } from "errors/index";
 import { canRequest } from "middlewares/can";
+import { redis } from "models/cacheDatabase";
 import nc, { type ApiRequest } from "models/connect";
 import validator from "models/validator";
 import type { NextApiResponse } from "next";
@@ -22,10 +23,23 @@ const getHandler: RequestHandler<ApiRequest, NextApiResponse> = async (req, res)
 	// Ler contas de energia
 
 	// TODO: Add rate limiter
-	// TODO: Add caching service
 
-	const bills = await electricityRepository.readAll();
-	return res.status(200).json({ message: "Faturas recuperadas com sucesso.", bills });
+	const cachedBills = await redis.get("electricity");
+	if (!cachedBills) {
+		const bills = await electricityRepository.readAll();
+
+		await redis.set("electricity", JSON.stringify(bills));
+		await redis.expire("electricity", 60 * 3);
+
+		return res.status(200).json({ message: "Faturas recuperadas com sucesso.", bills });
+	}
+
+	const bills: ElectricityBill[] = JSON.parse(cachedBills);
+	const expireSeconds = await redis.ttl("electricity");
+
+	return res
+		.status(200)
+		.json({ message: "Faturas recuperadas com sucesso (em cache).", bills, expireSeconds });
 };
 
 const postHandler: RequestHandler<ApiRequest, NextApiResponse> = async (req, res) => {

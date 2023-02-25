@@ -16,8 +16,6 @@ const ElectricityMonthReport = dynamic(
 	{ ssr: false }
 );
 
-export const revalidate = 120;
-
 export default async function Page({
 	searchParams,
 }: {
@@ -28,9 +26,7 @@ export default async function Page({
 	const month = validateMonthParam(searchParams?.month || null);
 
 	const electricity = await fetcher<{ bills: ElectricityBill[] }>(
-		new URL("/api/electricity", getURL()),
-		undefined,
-		{ next: { revalidate: 120 } }
+		new URL("/api/electricity", getURL())
 	);
 	const electricityData = electricity.data?.bills || [];
 
