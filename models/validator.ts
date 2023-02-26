@@ -339,7 +339,6 @@ const schemas: Record<string, () => Joi.ObjectSchema> = {
 		return Joi.object({
 			month: Joi.number()
 				.integer()
-				.positive()
 				.min(0)
 				.max(11)
 				.when("$required.month", {
@@ -350,7 +349,6 @@ const schemas: Record<string, () => Joi.ObjectSchema> = {
 				.messages({
 					"any.required": "O campo {#label} é obrigatório.",
 					"number.integer": "O campo {#label} deve ser um número inteiro.",
-					"number.positive": "O campo {#label} deve ser um número positivo.",
 					"number.min": "O campo {#label} não pode ser menor que {#limit}.",
 					"number.max": "O campo {#label} não pode ser maior que {#limit}.",
 				}),

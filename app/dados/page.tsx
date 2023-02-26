@@ -1,6 +1,4 @@
-import { ElectricityBill } from "entities/Electricity";
-import { fetcher } from "interface/utils/fetcher";
-import { getURL } from "models/webserver";
+import { getElectricityBills } from "interface/hooks/getElectricityBills";
 import dynamic from "next/dynamic";
 import React from "react";
 
@@ -25,10 +23,7 @@ export default async function Page({
 	const year = validateYearParam(searchParams?.year || null);
 	const month = validateMonthParam(searchParams?.month || null);
 
-	const electricity = await fetcher<{ bills: ElectricityBill[] }>(
-		new URL("/api/electricity", getURL())
-	);
-	const electricityData = electricity.data?.bills || [];
+	const electricityData = await getElectricityBills();
 
 	return (
 		<>

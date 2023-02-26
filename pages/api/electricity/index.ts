@@ -73,6 +73,9 @@ const postHandler: RequestHandler<ApiRequest, NextApiResponse> = async (req, res
 		items: body.items,
 	});
 
+	const cacheExists = await redis.exists("electricity");
+	if (cacheExists) await redis.del("electricity");
+
 	return res.status(201).json({ message: "Fatura cadastrada com sucesso." });
 };
 
@@ -90,6 +93,9 @@ const putHandler: RequestHandler<ApiRequest, NextApiResponse> = async (req, res)
 
 	await electricityRepository.update(id, { ...body });
 
+	const cacheExists = await redis.exists("electricity");
+	if (cacheExists) await redis.del("electricity");
+
 	return res.status(200).json({ message: "Fatura alterada com sucesso." });
 };
 
@@ -98,6 +104,9 @@ const deleteHandler: RequestHandler<ApiRequest, NextApiResponse> = async (req, r
 	const { id } = validator<{ id: string }>(req.body, { id: "required" });
 
 	await electricityRepository.delete(id);
+
+	const cacheExists = await redis.exists("electricity");
+	if (cacheExists) await redis.del("electricity");
 
 	return res.status(200).json({ message: "Fatura deletada com sucesso." });
 };

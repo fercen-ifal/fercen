@@ -28,7 +28,7 @@ export class FirebaseElectricityRepository implements IElectricityRepository {
 					id: uuid(),
 					...bill,
 				};
-				this.col.doc(databaseBill.id).create(databaseBill);
+				this.col.doc(databaseBill.id).create(JSON.parse(JSON.stringify(databaseBill)));
 
 				return databaseBill.id;
 			} catch (err) {
