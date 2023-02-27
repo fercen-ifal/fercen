@@ -13,9 +13,8 @@ export const getElectricityBills = async (): Promise<ElectricityBill[] | never> 
 		new URL("/api/electricity", getURL())
 	);
 
-	if (data) {
-		return data.bills;
-	}
+	if (data) return data.bills;
 
-	throw new Error(error.message || "Houve um erro inesperado.");
+	console.error(error);
+	return [];
 };
