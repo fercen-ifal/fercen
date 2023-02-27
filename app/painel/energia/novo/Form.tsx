@@ -8,8 +8,11 @@ import { fetcher } from "interface/utils/fetcher";
 import { getURL } from "models/webserver";
 import { useRouter } from "next/navigation";
 import React, { type FC, memo, useState, useCallback, type FormEvent } from "react";
+import { MdScience } from "react-icons/md";
 import { toast } from "react-toastify";
 import { useBoolean } from "react-use";
+
+import { BillOCRModule } from "./modules/BillOCRModule";
 
 export const Form: FC = memo(function Component() {
 	const router = useRouter();
@@ -72,7 +75,6 @@ export const Form: FC = memo(function Component() {
 
 			if (
 				!year ||
-				!month ||
 				!total ||
 				!pc_kWh ||
 				!pc_unitPrice ||
@@ -134,6 +136,32 @@ export const Form: FC = memo(function Component() {
 
 	return (
 		<>
+			<div className="flex flex-col gap-2 pb-4">
+				<div className="flex gap-2">
+					<h2 className="text-xl">Módulos</h2>
+					<span className="flex items-center h-fit gap-1 px-1 text-xs rounded bg-yellow-200/30 border border-yellow-500/30">
+						<MdScience />
+						Experimental
+					</span>
+				</div>
+
+				<div>
+					<BillOCRModule
+						{...{
+							setYear,
+							setMonth,
+							setTotal,
+							setPCkWh,
+							setPCUnitPrice,
+							setPCTotal,
+							setOCkWh,
+							setOCUnitPrice,
+							setOCTotal,
+						}}
+					/>
+				</div>
+			</div>
+
 			<form onSubmit={onSubmit} className="flex flex-col gap-3">
 				<div className="flex gap-3">
 					<TextField
@@ -238,7 +266,7 @@ export const Form: FC = memo(function Component() {
 					required
 				/>
 				<Button type="submit" loading={isLoading} className="bg-primary-dark">
-					Criar fatura
+					Cadastrar fatura
 				</Button>
 			</form>
 		</>

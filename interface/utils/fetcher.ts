@@ -22,9 +22,9 @@ export const fetcher = async <ReturnType = Object, BodyType = Object>(
 			...init,
 			method: init?.method ? init.method : body ? "POST" : "GET",
 			headers: {
-				...init?.headers,
 				Accept: "application/json",
 				"Content-Type": "application/json",
+				...init?.headers,
 			},
 			body: body ? JSON.stringify(body) : null,
 		});
