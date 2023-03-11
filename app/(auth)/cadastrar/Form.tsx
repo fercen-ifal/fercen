@@ -65,7 +65,7 @@ export const Form: FC = () => {
 	);
 
 	useEffect(() => {
-		if (params.has("invite") && inviteInputRef.current) {
+		if (params?.has("invite") && inviteInputRef.current) {
 			inviteInputRef.current.value = String(params.get("invite"));
 		}
 	}, [params]);

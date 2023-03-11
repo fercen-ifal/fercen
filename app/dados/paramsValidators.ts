@@ -6,7 +6,7 @@ export const reports = {
 	allMonths: "Todos os meses",
 };
 
-export const validateReportParam = (param: string | string[] | null): ReportType => {
+export const validateReportParam = (param?: string | string[] | null): ReportType => {
 	if (!param) return "annual";
 	if (typeof param !== "string") return "annual";
 	if (!Object.keys(reports).includes(param)) return "annual";
@@ -14,7 +14,7 @@ export const validateReportParam = (param: string | string[] | null): ReportType
 	return param as ReportType;
 };
 
-export const validateYearParam = (param: string | string[] | null): number => {
+export const validateYearParam = (param?: string | string[] | null): number => {
 	const currentYear = new Date().getFullYear();
 
 	if (!param) return currentYear;
@@ -24,7 +24,7 @@ export const validateYearParam = (param: string | string[] | null): number => {
 	return Number(param);
 };
 
-export const validateMonthParam = (param: string | string[] | null): number => {
+export const validateMonthParam = (param?: string | string[] | null): number => {
 	if (!param) return 0;
 	if (isNaN(Number(param))) return 0;
 	if (Number(param) > 11 || Number(param) < 0) return 0;

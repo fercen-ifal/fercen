@@ -18,9 +18,9 @@ export const Menu: FC = memo(function Component() {
 	const params = useSearchParams();
 	const router = useRouter();
 
-	const [report, setReport] = useState<ReportType>(validateReportParam(params.get("report")));
-	const [year, setYear] = useState<number>(validateYearParam(params.get("year")));
-	const [month, setMonth] = useState<number>(validateMonthParam(params.get("month")));
+	const [report, setReport] = useState<ReportType>(validateReportParam(params?.get("report")));
+	const [year, setYear] = useState<number>(validateYearParam(params?.get("year")));
+	const [month, setMonth] = useState<number>(validateMonthParam(params?.get("month")));
 
 	const onFilter = useCallback(() => {
 		const newParams = new URLSearchParams({ report, year: String(year), month: String(month) });

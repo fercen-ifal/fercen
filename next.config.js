@@ -5,6 +5,7 @@ const nextConfig = {
 	poweredByHeader: false,
 	experimental: {
 		appDir: true,
+		typedRoutes: true,
 	},
 };
 

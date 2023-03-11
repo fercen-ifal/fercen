@@ -37,40 +37,44 @@ export const Form: FC = memo(function Component() {
 	const calculatePCValues = useCallback(() => {
 		const kWh = Number(pc_kWh);
 		const unitPrice = Number(pc_unitPrice);
-		const total = Number(pc_total);
 
-		if (kWh && unitPrice && !total) {
+		if (kWh && unitPrice && !pc_total) {
 			const newTotal = kWh * unitPrice;
 			setPCTotal(Number(newTotal.toFixed(2)));
-		} else if (kWh && total && !unitPrice) {
-			const newUnitPrice = total / kWh;
+		} else if (kWh && pc_total && !unitPrice) {
+			const newUnitPrice = pc_total / kWh;
 			setPCUnitPrice(Number(newUnitPrice.toFixed(5)));
-		} else if (unitPrice && total && !kWh) {
-			const newkWh = total / unitPrice;
+		} else if (unitPrice && pc_total && !kWh) {
+			const newkWh = pc_total / unitPrice;
 			setPCkWh(Number(newkWh.toFixed(2)));
 		}
 
-		if (total && Number(oc_total)) setTotal(total + Number(oc_total));
-	}, [pc_kWh, pc_unitPrice, pc_total, oc_total]);
+		if (pc_total && Number(oc_total) && !total) {
+			const newTotal = pc_total + Number(oc_total);
+			setTotal(Number(newTotal.toFixed(2)));
+		}
+	}, [pc_kWh, pc_unitPrice, pc_total, oc_total, total]);
 
 	const calculateOCValues = useCallback(() => {
 		const kWh = Number(oc_kWh);
 		const unitPrice = Number(oc_unitPrice);
-		const total = Number(oc_total);
 
-		if (kWh && unitPrice && !total) {
+		if (kWh && unitPrice && !oc_total) {
 			const newTotal = kWh * unitPrice;
 			setOCTotal(Number(newTotal.toFixed(2)));
-		} else if (kWh && total && !unitPrice) {
-			const newUnitPrice = total / kWh;
+		} else if (kWh && oc_total && !unitPrice) {
+			const newUnitPrice = oc_total / kWh;
 			setOCUnitPrice(Number(newUnitPrice.toFixed(5)));
-		} else if (unitPrice && total && !kWh) {
-			const newkWh = total / unitPrice;
+		} else if (unitPrice && oc_total && !kWh) {
+			const newkWh = oc_total / unitPrice;
 			setOCkWh(Number(newkWh.toFixed(2)));
 		}
 
-		if (total && Number(pc_total)) setTotal(total + Number(pc_total));
-	}, [oc_kWh, oc_unitPrice, oc_total, pc_total]);
+		if (oc_total && Number(pc_total) && !total) {
+			const newTotal = oc_total + Number(pc_total);
+			setTotal(Number(newTotal.toFixed(2)));
+		}
+	}, [oc_kWh, oc_unitPrice, oc_total, pc_total, total]);
 
 	const onSubmit = useCallback(
 		async (event: FormEvent<HTMLFormElement>) => {
