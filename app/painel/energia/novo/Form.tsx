@@ -7,8 +7,8 @@ import { TextField } from "interface/components/TextField";
 import { fetcher } from "interface/utils/fetcher";
 import { getURL } from "models/webserver";
 import { useRouter } from "next/navigation";
-import React, { type FC, memo, useState, useCallback, type FormEvent } from "react";
-import { MdScience } from "react-icons/md";
+import React, { type FC, memo, useState, useCallback, type FormEvent, useRef } from "react";
+import { MdAdd, MdDelete, MdScience } from "react-icons/md";
 import { toast } from "react-toastify";
 import { useBoolean } from "react-use";
 
@@ -29,6 +29,10 @@ export const Form: FC = memo(function Component() {
 	const [oc_kWh, setOCkWh] = useState(0);
 	const [oc_unitPrice, setOCUnitPrice] = useState(0);
 	const [oc_total, setOCTotal] = useState(0);
+
+	const itemLabelInputRef = useRef<HTMLInputElement>(null);
+	const itemPriceInputRef = useRef<HTMLInputElement>(null);
+	const [items, setItems] = useState<{ label: string; cost: number }[]>([]);
 
 	const calculatePCValues = useCallback(() => {
 		const kWh = Number(pc_kWh);
@@ -104,6 +108,7 @@ export const Form: FC = memo(function Component() {
 						total: oc_total,
 					},
 					totalPrice: total,
+					items,
 				},
 				{ method: "POST" }
 			);
@@ -129,10 +134,25 @@ export const Form: FC = memo(function Component() {
 			pc_unitPrice,
 			total,
 			year,
+			items,
 			router,
 			toggleLoading,
 		]
 	);
+
+	const addItem = useCallback(() => {
+		const label = itemLabelInputRef.current?.value;
+		const cost = itemPriceInputRef.current?.value;
+
+		if (!label || !cost || isNaN(Number(cost))) {
+			toast.info("Preencha o nome e o valor do item antes de adicionar.");
+			return;
+		}
+
+		itemLabelInputRef.current.value = "";
+		itemPriceInputRef.current.value = "";
+		setItems(items => [...items, { label, cost: Number(cost) }]);
+	}, []);
 
 	return (
 		<>
@@ -157,6 +177,7 @@ export const Form: FC = memo(function Component() {
 							setOCkWh,
 							setOCUnitPrice,
 							setOCTotal,
+							setItems,
 						}}
 					/>
 				</div>
@@ -265,6 +286,61 @@ export const Form: FC = memo(function Component() {
 					onChange={ev => setTotal(Number(ev.target.value))}
 					required
 				/>
+				<div className="flex flex-col gap-2 pb-2">
+					<h3 className="text-sm pb-1">Itens da fatura deste mês (opcional):</h3>
+					<ul className="flex flex-col gap-2">
+						<li className="flex gap-3">
+							<TextField
+								ref={itemLabelInputRef}
+								type="text"
+								placeholder="Nome do item:"
+							/>
+							<TextField
+								ref={itemPriceInputRef}
+								type="number"
+								placeholder="Valor do item (R$):"
+								step={0.00001}
+							/>
+							<button type="button" onClick={addItem}>
+								<MdAdd className="text-2xl" />
+							</button>
+						</li>
+						{items.length > 0 ? (
+							items.map((item, index) => (
+								<li
+									key={index}
+									className="flex justify-between items-center gap-4 p-1 rounded-sm duration-200 hover:bg-slate-50"
+								>
+									<div className="flex justify-between items-center gap-2 w-full">
+										<span className="underline w-4/5 truncate">
+											{item.label}
+										</span>
+										<span className="w-1/5 text-right truncate">
+											{new Intl.NumberFormat("pt-BR", {
+												style: "currency",
+												currency: "BRL",
+											}).format(item.cost)}
+										</span>
+									</div>
+									<button
+										type="button"
+										onClick={() => {
+											setItems(items =>
+												items.filter((_, itemIndex) => itemIndex !== index)
+											);
+										}}
+									>
+										<MdDelete className="text-xl" />
+									</button>
+								</li>
+							))
+						) : (
+							<li className="flex justify-center items-center">
+								<span className="text-center">Nenhum item adicionado.</span>
+							</li>
+						)}
+					</ul>
+				</div>
 				<Button type="submit" loading={isLoading} className="bg-primary-dark">
 					Cadastrar fatura
 				</Button>

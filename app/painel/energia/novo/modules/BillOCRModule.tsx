@@ -20,6 +20,7 @@ export interface BillOCRProps {
 	setOCkWh: (num: number) => void;
 	setOCUnitPrice: (num: number) => void;
 	setOCTotal: (num: number) => void;
+	setItems: (items: { label: string; cost: number }[]) => void;
 }
 
 interface BillOCRApiReturn {
@@ -43,6 +44,7 @@ export const BillOCRModule: FC<BillOCRProps> = memo(function Component({
 	setOCkWh,
 	setOCUnitPrice,
 	setOCTotal,
+	setItems,
 }) {
 	const [isOpen, toggleOpen] = useBoolean(false);
 	const [isLoading, toggleLoading] = useBoolean(false);
@@ -77,13 +79,14 @@ export const BillOCRModule: FC<BillOCRProps> = memo(function Component({
 				return;
 			}
 
-			const data: BillOCRApiReturn = json;
+			const { data }: BillOCRApiReturn = json;
 
-			if (data.data.year) setYear(data.data.year);
-			if (data.data.month) setMonth(data.data.month);
-			if (data.data.total && !isNaN(data.data.total)) setTotal(data.data.total);
+			console.log(data);
+			if (data.year) setYear(data.year);
+			if (data.month) setMonth(data.month);
+			if (data.total && !isNaN(data.total)) setTotal(data.total);
 
-			for (const item of data.data.items) {
+			for (const item of data.items) {
 				if (item.label.toLowerCase().startsWith("consumo ponta")) {
 					if (item.units) setPCkWh(item.units);
 					if (item.unitPrice) setPCUnitPrice(item.unitPrice);
@@ -101,6 +104,10 @@ export const BillOCRModule: FC<BillOCRProps> = memo(function Component({
 				}
 			}
 
+			setItems(
+				data.items.map(value => ({ label: value.label, cost: Number(value.total) || 0 }))
+			);
+
 			toggleLoading();
 			toast.success("Dados extraídos com sucesso.");
 			toggleOpen();
@@ -117,6 +124,7 @@ export const BillOCRModule: FC<BillOCRProps> = memo(function Component({
 			setOCkWh,
 			setOCUnitPrice,
 			setOCTotal,
+			setItems,
 		]
 	);
 

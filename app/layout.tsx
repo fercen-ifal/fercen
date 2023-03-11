@@ -1,6 +1,5 @@
-import { Poppins } from "@next/font/google";
-
 import { Header } from "interface/components/Header";
+import { Poppins } from "next/font/google";
 import React from "react";
 import "react-toastify/dist/ReactToastify.min.css";
 

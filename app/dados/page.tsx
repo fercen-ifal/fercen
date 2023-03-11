@@ -1,18 +1,10 @@
 import { getElectricityBills } from "interface/hooks/getElectricityBills";
-import dynamic from "next/dynamic";
 import React from "react";
 
 import { RegisterCharts } from "./RegisterCharts";
 import { validateMonthParam, validateReportParam, validateYearParam } from "./paramsValidators";
-
-const ElectricityAnnualReport = dynamic(
-	() => import("./reports/ElectricityAnnualReport").then(mod => mod.ElectricityAnnualReport),
-	{ ssr: false }
-);
-const ElectricityMonthReport = dynamic(
-	() => import("./reports/ElectricityMonthReport").then(mod => mod.ElectricityMonthReport),
-	{ ssr: false }
-);
+import { ElectricityAnnualReport } from "./reports/ElectricityAnnualReport";
+import { ElectricityMonthReport } from "./reports/ElectricityMonthReport";
 
 export default async function Page({
 	searchParams,
