@@ -1,3 +1,4 @@
+import type { Metadata } from "next";
 import Link from "next/link";
 import React from "react";
 import { MdDataSaverOff, MdArrowBack } from "react-icons/md";
@@ -5,6 +6,16 @@ import { MdDataSaverOff, MdArrowBack } from "react-icons/md";
 import { Form } from "./Form";
 
 // TODO: Fix pathname, menu options and submodule highlighting
+
+export const metadata: Metadata = {
+	title: "Cadastre faturas de energia",
+	description: "Faça o cadastro de novas faturas de energia para um campus do IFAL.",
+
+	openGraph: {
+		title: "Cadastre faturas de energia | FERCEN",
+		description: "Faça o cadastro de novas faturas de energia para um campus do IFAL.",
+	},
+};
 
 export default async function Page() {
 	return (

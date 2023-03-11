@@ -1,11 +1,7 @@
-import dynamic from "next/dynamic";
 import Link from "next/link";
 import React from "react";
 
-const Globe = dynamic(() => import("./Globe").then(mod => mod.Globe), {
-	ssr: false,
-	loading: () => <div className="w-[350px] h-[350px]"></div>,
-});
+import { Globe } from "./Globe";
 
 export default function Page() {
 	return (

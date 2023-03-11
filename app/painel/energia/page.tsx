@@ -1,9 +1,20 @@
 import { getElectricityBills } from "interface/hooks/getElectricityBills";
+import type { Metadata } from "next";
 import Link from "next/link";
 import React from "react";
 import { MdDataSaverOff, MdWarning, MdAdd } from "react-icons/md";
 
 import { ElectricityBills } from "./ElectricityBills";
+
+export const metadata: Metadata = {
+	title: "Gerenciar dados de energia",
+	description: "Gerencie os dados de energia dos campi do IFAL.",
+
+	openGraph: {
+		title: "Gerenciar dados de energia | FERCEN",
+		description: "Gerencie os dados de energia dos campi do IFAL.",
+	},
+};
 
 export default async function Page() {
 	const bills = await getElectricityBills();

@@ -1,6 +1,17 @@
 import { getSession } from "interface/hooks/getSession";
+import type { Metadata } from "next";
 
 import { Form } from "./Form";
+
+export const metadata: Metadata = {
+	title: "Faça login",
+	description: "Faça login na sua conta FERCEN.",
+
+	openGraph: {
+		title: "Faça login | FERCEN",
+		description: "Faça login na sua conta FERCEN.",
+	},
+};
 
 export default async function Page() {
 	await getSession({ redirect: "/painel/conta", redirectIfFound: true });

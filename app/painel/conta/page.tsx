@@ -1,8 +1,19 @@
 import { getSession } from "interface/hooks/getSession";
+import type { Metadata } from "next";
 import React from "react";
 import { MdAccountCircle } from "react-icons/md";
 
 import { ModuleManager } from "./ModuleManager";
+
+export const metadata: Metadata = {
+	title: "Sua Conta",
+	description: "Gerencie os dados da sua conta FERCEN.",
+
+	openGraph: {
+		title: "Sua Conta | FERCEN",
+		description: "Gerencie os dados da sua conta FERCEN.",
+	},
+};
 
 export default async function Page() {
 	const { session } = await getSession({ redirect: "/login" });

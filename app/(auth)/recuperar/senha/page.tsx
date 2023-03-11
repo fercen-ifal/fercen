@@ -1,4 +1,16 @@
+import type { Metadata } from "next";
+
 import { Form } from "./Form";
+
+export const metadata: Metadata = {
+	title: "Recupere sua senha",
+	description: "Recupere a senha da sua conta FERCEN caso tenha esquecido.",
+
+	openGraph: {
+		title: "Recupere sua senha | FERCEN",
+		description: "Recupere a senha da sua conta FERCEN caso tenha esquecido.",
+	},
+};
 
 export default async function Page() {
 	return (

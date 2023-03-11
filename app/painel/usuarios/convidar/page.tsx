@@ -1,8 +1,19 @@
 import { getSession } from "interface/hooks/getSession";
+import type { Metadata } from "next";
 import React from "react";
 import { MdPersonAddAlt1, MdWarning } from "react-icons/md";
 
 import { Form } from "./Form";
+
+export const metadata: Metadata = {
+	title: "Convidar administrador",
+	description: "Gerencie os administradores cadastrados na plataforma.",
+
+	openGraph: {
+		title: "Convidar administrador | FERCEN",
+		description: "Gerencie os administradores cadastrados na plataforma.",
+	},
+};
 
 export default async function Page() {
 	const { session } = await getSession({ redirect: "/login" });

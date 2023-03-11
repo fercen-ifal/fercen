@@ -1,6 +1,7 @@
 import type { User } from "entities/User";
 import { fetcher } from "interface/utils/fetcher";
 import { getURL } from "models/webserver";
+import type { Metadata } from "next";
 import { cookies } from "next/headers";
 import React from "react";
 import { MdManageAccounts, MdWarning } from "react-icons/md";
@@ -26,6 +27,16 @@ async function getUsers() {
 	}
 	return res.data.users;
 }
+
+export const metadata: Metadata = {
+	title: "Gerenciar usuários",
+	description: "Gerencie os administradores cadastrados na plataforma.",
+
+	openGraph: {
+		title: "Gerenciar usuários | FERCEN",
+		description: "Gerencie os administradores cadastrados na plataforma.",
+	},
+};
 
 export default async function Page() {
 	const users = await getUsers();

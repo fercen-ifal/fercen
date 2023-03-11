@@ -1,11 +1,8 @@
 import { PermissionsLabels } from "entities/Permissions";
 import type { User } from "entities/User";
-import dynamic from "next/dynamic";
 import React, { type FC, memo } from "react";
 
-const UserCardDialog = dynamic(() => import("./UserCardDialog").then(mod => mod.UserCardDialog), {
-	ssr: false,
-});
+import { UserCardDialog } from "./UserCardDialog";
 
 export const UserCard: FC<User> = memo(function Component({
 	id,
