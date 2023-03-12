@@ -1,10 +1,22 @@
 import { getElectricityBills } from "interface/hooks/getElectricityBills";
+import type { Metadata } from "next";
 import React from "react";
 
 import { RegisterCharts } from "./RegisterCharts";
 import { validateMonthParam, validateReportParam, validateYearParam } from "./paramsValidators";
 import { ElectricityAnnualReport } from "./reports/ElectricityAnnualReport";
 import { ElectricityMonthReport } from "./reports/ElectricityMonthReport";
+
+export const metadata: Metadata = {
+	title: "Visualize os dados",
+	description: "Analise os dados de consumo energético dos campi do IFAL por meio de gráficos.",
+
+	openGraph: {
+		title: "Visualize os dados | FERCEN",
+		description:
+			"Analise os dados de consumo energético dos campi do IFAL por meio de gráficos.",
+	},
+};
 
 export default async function Page({
 	searchParams,
