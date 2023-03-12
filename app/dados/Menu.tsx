@@ -27,6 +27,10 @@ export const Menu: FC = memo(function Component() {
 		router.push("/dados?" + newParams.toString());
 	}, [report, year, month, router]);
 
+	const onPrint = useCallback(() => {
+		print();
+	}, []);
+
 	// TODO: Load available years in the year select component dynamically
 
 	return (
@@ -72,6 +76,9 @@ export const Menu: FC = memo(function Component() {
 			) : null}
 			<Button className="bg-primary-dark" onClick={onFilter}>
 				Filtrar
+			</Button>
+			<Button className="bg-gray-500" onClick={onPrint}>
+				Imprimir ou Gerar PDF
 			</Button>
 		</>
 	);

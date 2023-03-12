@@ -12,7 +12,7 @@ export default async function DataLayout({ children }: { children: React.ReactNo
 			<section className="flex min-h-screen h-full pt-[150px] sm:pt-[90px] print:pt-2">
 				<aside
 					id="menu"
-					className="scale-0 sm:scale-100 flex fixed flex-col h-full sm:w-72 p-4 gap-4 z-[1] bg-gray-100 shadow sm:shadow-none transition-transform origin-top-left duration-100"
+					className="scale-0 sm:scale-100 flex fixed flex-col h-full sm:w-72 p-4 gap-4 z-[1] bg-gray-100 shadow sm:shadow-none transition-transform origin-top-left duration-100 print:hidden"
 				>
 					<Menu />
 				</aside>
