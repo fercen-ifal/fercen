@@ -153,10 +153,15 @@ export const Form: FC = memo(function Component() {
 			return;
 		}
 
+		if (items.map(item => item.label).includes(label)) {
+			toast.info("O nome do item deve ser único.");
+			return;
+		}
+
 		itemLabelInputRef.current.value = "";
 		itemPriceInputRef.current.value = "";
 		setItems(items => [...items, { label, cost: Number(cost) }]);
-	}, []);
+	}, [items]);
 
 	return (
 		<>
