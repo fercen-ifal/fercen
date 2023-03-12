@@ -4,6 +4,7 @@ import { Button } from "interface/components/Button";
 import { Select } from "interface/components/Select";
 import { useRouter, useSearchParams } from "next/navigation";
 import React, { type FC, memo, useState, useCallback } from "react";
+import { useLocalStorage } from "react-use";
 
 import { monthsLabels } from "./electricityData";
 import {
@@ -22,6 +23,8 @@ export const Menu: FC = memo(function Component() {
 	const [year, setYear] = useState<number>(validateYearParam(params?.get("year")));
 	const [month, setMonth] = useState<number>(validateMonthParam(params?.get("month")));
 
+	const [electricityYears] = useLocalStorage("electricity-years", [new Date().getFullYear()]);
+
 	const onFilter = useCallback(() => {
 		const newParams = new URLSearchParams({ report, year: String(year), month: String(month) });
 		router.push("/dados?" + newParams.toString());
@@ -30,8 +33,6 @@ export const Menu: FC = memo(function Component() {
 	const onPrint = useCallback(() => {
 		print();
 	}, []);
-
-	// TODO: Load available years in the year select component dynamically
 
 	return (
 		<>
@@ -50,7 +51,7 @@ export const Menu: FC = memo(function Component() {
 				<div className="flex flex-col justify-center items-center gap-2">
 					<span className="text-center text-lg font-medium">Selecione o ano:</span>
 					<Select
-						items={[2021, 2022, 2023].map(value => ({
+						items={(electricityYears || [new Date().getFullYear()]).map(value => ({
 							id: String(value),
 							label: String(value),
 						}))}

@@ -27,12 +27,18 @@ export const ElectricityMonthReport: FC<ElectricityMonthReportProps> = memo(func
 	data,
 }) {
 	const years = useMemo(() => {
-		return data
+		const years = data
 			.map(value => value.year)
 			.sort()
 			.filter((item, pos, arr) => {
 				return !pos || item != arr[pos - 1];
 			});
+
+		if (typeof window !== "undefined") {
+			localStorage.setItem("electricity-years", JSON.stringify(years));
+		}
+
+		return years;
 	}, [data]);
 
 	const monthData = useMemo(() => {
